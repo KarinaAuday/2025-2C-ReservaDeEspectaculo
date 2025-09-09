@@ -8,6 +8,8 @@
 
         public int Numero { get; set; }
 
-        public TipoSala TipoSalaId { get; set; }
+        public int TipoSalaId { get; set; }
+
+        public TipoSala TipoSala { get; set; }
     }
 }
