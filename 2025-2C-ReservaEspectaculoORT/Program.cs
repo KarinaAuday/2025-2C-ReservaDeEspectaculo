@@ -1,3 +1,7 @@
+using Microsoft.EntityFrameworkCore;
+using _2025_2C_ReservaEspectaculoORT.Data;
+using static System.Runtime.InteropServices.JavaScript.JSType;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -25,5 +29,8 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}")
     .WithStaticAssets();
 
+//Configuro la Base de Datos
+builder.Services.AddDbContext<ReservaEspectaculoContext>(options =>
+options.UseInMemoryDatabase("ReservaEspectaculoDB"));
 
 app.Run();
