@@ -21,7 +21,7 @@ namespace _2025_2C_ReservaEspectaculoORT.Models
         [StringLength(10, ErrorMessage = ErrorMsg.StringLenght)]
         public int TipoSalaId { get; set; }
 
-        [Required(ErrorMessage = ErrorMsg.Required)]
+        
         public TipoSala TipoSala { get; set; }
     }
 }
