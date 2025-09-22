@@ -20,8 +20,9 @@ namespace _2025_2C_ReservaEspectaculoORT.Models
         [RegularExpression(@"^[1-9]\d*$", ErrorMessage = ErrorMsg.SoloNumeros)]
         [StringLength(10, ErrorMessage = ErrorMsg.StringLenght)]
         public int TipoSalaId { get; set; }
-
         
         public TipoSala TipoSala { get; set; }
+
+        public List<Funcion> Funciones { get; set; } = [];
     }
 }
