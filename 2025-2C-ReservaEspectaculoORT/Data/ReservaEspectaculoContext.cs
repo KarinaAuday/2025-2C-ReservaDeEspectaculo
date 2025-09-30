@@ -15,6 +15,7 @@ namespace _2025_2C_ReservaEspectaculoORT.Data
         public DbSet<_2025_2C_ReservaEspectaculoORT.Models.TipoSala> TipoSala { get; set; } = default!;
         public DbSet<_2025_2C_ReservaEspectaculoORT.Models.Funcion> Funcion { get; set; } = default!;
         public DbSet<_2025_2C_ReservaEspectaculoORT.Models.Reserva> Reserva { get; set; } = default!;
+        public DbSet<_2025_2C_ReservaEspectaculoORT.Models.Pelicula> Pelicula { get; set; } = default!;
        
 
     }
