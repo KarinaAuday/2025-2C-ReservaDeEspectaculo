@@ -4,6 +4,8 @@ namespace _2025_2C_ReservaEspectaculoORT.Models
 {
     public class Persona
     {
+        public int id { get; set; }
+
         [Required(ErrorMessage = ErrorMsg.Required)]
         [RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = ErrorMsg.SoloLetras)]
         public string Apellido { get; set; }

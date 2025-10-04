@@ -7,6 +7,11 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+//Configuro la Base de Datos
+builder.Services.AddDbContext<ReservaEspectaculoContext>(options =>
+options.UseInMemoryDatabase("ReservaEspectaculoDB"));
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -20,6 +25,7 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseRouting();
 
+
 app.UseAuthorization();
 
 app.MapStaticAssets();
@@ -29,8 +35,5 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}")
     .WithStaticAssets();
 
-//Configuro la Base de Datos
-builder.Services.AddDbContext<ReservaEspectaculoContext>(options =>
-options.UseInMemoryDatabase("ReservaEspectaculoDB"));
 
 app.Run();
