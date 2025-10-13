@@ -11,6 +11,7 @@ namespace _2025_2C_ReservaEspectaculoORT.Data
 
         }
         public DbSet<_2025_2C_ReservaEspectaculoORT.Models.Persona> Persona { get; set; } = default!;
+        public DbSet<_2025_2C_ReservaEspectaculoORT.Models.Sala> Sala { get; set; } = default!;
        
 
     }
