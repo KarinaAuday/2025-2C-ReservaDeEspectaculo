@@ -9,7 +9,7 @@ namespace _2025_2C_ReservaEspectaculoORT.Models
 
         [StringLength(30, ErrorMessage = ErrorMsg.StringLenght)]
         [Required(ErrorMessage = ErrorMsg.Required)]
-        [RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = ErrorMsg.SoloLetras)]
+        [RegularExpression(@"^[a-zA-Z0-9]+$", ErrorMessage = ErrorMsg.SoloLetrasYNumeros)]
         public string Nombre { get; set; }
 
         [Required(ErrorMessage = ErrorMsg.Required)]
