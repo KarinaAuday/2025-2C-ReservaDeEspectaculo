@@ -13,7 +13,7 @@ namespace _2025_2C_ReservaEspectaculoORT.Models
 
         [Required(ErrorMessage = ErrorMsg.Required)]
         [Display(Name = "Documento Nacional de Identidad")]
-        [RegularExpression(@"^\{8}$", ErrorMessage = ErrorMsg.OchoDigitos)]
+        [RegularExpression(@"^\d{8}$", ErrorMessage = ErrorMsg.OchoDigitos)]
         public string Dni { get; set; }
 
         [Required(ErrorMessage = ErrorMsg.Required)]
