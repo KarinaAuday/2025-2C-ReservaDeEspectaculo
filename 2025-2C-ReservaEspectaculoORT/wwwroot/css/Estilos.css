@@ -1,0 +1,39 @@
+﻿
+menu-uno{
+display: inline-block;
+background: url(../img/icono.png) no-repeat center;
+background-size: 40 px 40 px;
+height:40 px;
+text-indent: -9999px;
+overflow:hidden;
+}
+.principal {
+align-context: center;
+text-align:center;
+}
+
+.table {
+    color:antiquewhite
+}
+.centered-image {
+    display: flex;
+    justify-content: center;
+    align-items:center;
+    text-align: center;
+    margin-top: 2rem;
+
+}
+.space-between{
+    margin-bottom: 2rem;
+}
+body {
+background-color: #010120;
+color: white;
+font-family:  Calibri, sans-serif;
+}
+.display-4{
+    font-size:2.5rem;
+    font-weight:bold;
+    margin-bottom:1rem;
+}
+
