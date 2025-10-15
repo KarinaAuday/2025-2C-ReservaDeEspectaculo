@@ -13,14 +13,13 @@ namespace _2025_2C_ReservaEspectaculoORT.Models
 
         [Required(ErrorMessage = ErrorMsg.Required)]
         [RegularExpression(@"^[1-9]\d*$", ErrorMessage = ErrorMsg.SoloNumeros)]
-        [StringLength(3, ErrorMessage = ErrorMsg.StringLenght)]
         public int Numero { get; set; }
 
         [Required(ErrorMessage = ErrorMsg.Required)]
         [RegularExpression(@"^[a-zA-Z0-9]+$", ErrorMessage = ErrorMsg.SoloLetrasYNumeros)]
         public int TipoSalaId { get; set; }
         
-        public TipoSala TipoSala { get; set; }
+        public TipoSala ? TipoSala { get; set; }
 
         public List<Funcion> Funciones { get; set; } = new List<Funcion>();
     }

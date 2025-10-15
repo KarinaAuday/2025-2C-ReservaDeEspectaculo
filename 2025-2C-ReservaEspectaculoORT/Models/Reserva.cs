@@ -17,8 +17,8 @@ namespace _2025_2C_ReservaEspectaculoORT.Models
 
         [Required(ErrorMessage = ErrorMsg.Required)]
         public DateTime FechaAlta { get; set; }
-        public Cliente Cliente { get; set; }
-        public Funcion Funcion { get; set; }
+        public Cliente ? Cliente { get; set; }
+        public Funcion ? Funcion { get; set; }
 
         [Required(ErrorMessage = ErrorMsg.Required)]
         [RegularExpression(@"^\d+$", ErrorMessage = ErrorMsg.SoloNumeros)]
