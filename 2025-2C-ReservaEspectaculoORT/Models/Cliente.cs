@@ -2,6 +2,6 @@
 {
     public class Cliente : Persona
     {
-        public List<Reserva> Reservas { get; set; } 
+        public List<Reserva> Reservas { get; set; } = new List<Reserva>();
     }
 }
