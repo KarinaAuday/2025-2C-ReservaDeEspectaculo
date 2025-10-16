@@ -116,6 +116,27 @@ namespace _2025_2C_ReservaEspectaculoORT.Controllers
             return View(pelicula);
         }
 
+        public ActionResult Buscar(string ?titulo)
+        {
+            if (!String.IsNullOrEmpty(titulo))
+            {
+
+                var peliculas = _context.Pelicula.Where(p => p.Titulo.ToUpper().Contains(titulo.ToUpper())).ToList();
+                if (peliculas.Count == 0)
+                {
+                    ViewBag.Mensaje = "No se encontraron resultados";
+                }
+
+                return View("Buscador", peliculas);
+
+            }
+            else
+            {
+                return View("Buscador");
+            }
+        }
+
+
         // GET: Peliculas/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {

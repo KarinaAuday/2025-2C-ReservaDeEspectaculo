@@ -8,14 +8,35 @@ text-indent: -9999px;
 overflow:hidden;
 }
 
+.pepe .navbar-collapse .navbar-nav {
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 16px;
+    height: 40px;
+    align-items: center;
+    background-color: blue;
+}
+
+.navbar {
+    background-color: #010120;
+}
+
+.navbar-text,
+.navbar-brand,
+.nav-link {
+    color: white !important;
+}
+
+
 .principal {
-align-content: center;
-text-align:center;
+    align-content: center;
+    text-align:center;
 }
 
 .table {
     color:antiquewhite
 }
+
 .centered-image {
     display: flex;
     justify-content: center;
@@ -30,9 +51,9 @@ text-align:center;
 }
 
 body {
-background-color: #010120;
-color: white;
-font-family:  Calibri, sans-serif;
+    background-color: white;
+    /*color: black;*/
+    font-family: Calibri, sans-serif;
 }
 
 .display-4{

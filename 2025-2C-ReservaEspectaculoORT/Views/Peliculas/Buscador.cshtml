@@ -1,0 +1,22 @@
+﻿@model List<_2025_2C_ReservaEspectaculoORT.Models.Pelicula>
+<p>Busqueda de peliculas por nombre</p>
+<form method="get" action='@Url.Action("Buscar", "Peliculas")'>
+	<input type= "text" name="titulo" placeholder="Nombre de la pelicula" />
+	<input type="submit" value="Buscar" />
+</form>
+
+@if (!String.IsNullOrEmpty(ViewBag.Mensaje))
+{
+    <p>@ViewBag.Mensaje</p>
+}
+@if (Model != null && Model.Count > 0)
+{
+    <h2>Resultado de la busqueda</h2>
+    <ul>
+        @foreach (var pelicula in Model)
+        {
+            <li>@pelicula.Titulo</li>
+        }
+    </ul>
+
+}
