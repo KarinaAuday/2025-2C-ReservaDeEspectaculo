@@ -8,6 +8,13 @@ text-indent: -9999px;
 overflow:hidden;
 }
 
+.pepe .navbar-collapse .navbar-nav {
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 16px;
+    color: black;
+}
+
 .principal {
 align-content: center;
 text-align:center;
@@ -30,8 +37,8 @@ text-align:center;
 }
 
 body {
-background-color: #010120;
-color: white;
+background-color: white;
+color: black;
 font-family:  Calibri, sans-serif;
 }
 
