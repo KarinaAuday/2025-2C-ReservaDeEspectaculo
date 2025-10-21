@@ -8,9 +8,12 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 //Configuro la Base de Datos
-builder.Services.AddDbContext<ReservaEspectaculoContext>(options =>
-options.UseInMemoryDatabase("ReservaEspectaculoDB"));
+//builder.Services.AddDbContext<ReservaEspectaculoContext>(options =>
+//options.UseInMemoryDatabase("ReservaEspectaculoDB"));
 
+//Configuro SQL Server
+////Agrego la base de datos SQL , y guardo el conection string en el appsetting.json
+builder.Services.AddDbContext<ReservaEspectaculoContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("ReservaEspectaculoDBCS")));
 
 var app = builder.Build();
 
