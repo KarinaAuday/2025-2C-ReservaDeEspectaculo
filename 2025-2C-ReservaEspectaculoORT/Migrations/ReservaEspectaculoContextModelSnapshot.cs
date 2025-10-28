@@ -70,7 +70,7 @@ namespace _2025_2C_ReservaEspectaculoORT.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("FechaLanzaiento")
+                    b.Property<DateTime>("FechaLanzamiento")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Foto")
@@ -231,7 +231,7 @@ namespace _2025_2C_ReservaEspectaculoORT.Migrations
                 {
                     b.HasBaseType("_2025_2C_ReservaEspectaculoORT.Models.Persona");
 
-                    b.Property<int>("legajo")
+                    b.Property<int>("Legajo")
                         .HasColumnType("int");
 
                     b.HasDiscriminator().HasValue("Empleado");

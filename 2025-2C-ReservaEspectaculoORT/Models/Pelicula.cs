@@ -16,9 +16,9 @@ namespace _2025_2C_ReservaEspectaculoORT.Models
 
         [Required(ErrorMessage = ErrorMsg.Required)]
         
-        public DateTime FechaLanzaiento { get; set; }
+        public DateTime FechaLanzamiento { get; set; }
 
-      
+        
         public int Id { get; set; }
 
         [Required(ErrorMessage = ErrorMsg.Required)]

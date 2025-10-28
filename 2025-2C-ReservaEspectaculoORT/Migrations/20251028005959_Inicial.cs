@@ -19,8 +19,8 @@ namespace _2025_2C_ReservaEspectaculoORT.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Descripcion = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Titulo = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    FechaLanzaiento = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Foto = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    FechaLanzamiento = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Foto = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Genero = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -43,7 +43,7 @@ namespace _2025_2C_ReservaEspectaculoORT.Migrations
                     Telefono = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     UserName = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
                     Discriminator = table.Column<string>(type: "nvarchar(8)", maxLength: 8, nullable: false),
-                    legajo = table.Column<int>(type: "int", nullable: true)
+                    Legajo = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -93,7 +93,7 @@ namespace _2025_2C_ReservaEspectaculoORT.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ButacasDisponibles = table.Column<int>(type: "int", nullable: false),
                     Confirmada = table.Column<bool>(type: "bit", nullable: false),
-                    Descripcion = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Descripcion = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Fecha = table.Column<DateTime>(type: "datetime2", nullable: false),
                     PeliculaId = table.Column<int>(type: "int", nullable: false),
                     SalaId = table.Column<int>(type: "int", nullable: false)

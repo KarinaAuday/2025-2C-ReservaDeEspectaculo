@@ -12,7 +12,7 @@ using _2025_2C_ReservaEspectaculoORT.Data;
 namespace _2025_2C_ReservaEspectaculoORT.Migrations
 {
     [DbContext(typeof(ReservaEspectaculoContext))]
-    [Migration("20251021011706_Inicial")]
+    [Migration("20251028005959_Inicial")]
     partial class Inicial
     {
         /// <inheritdoc />
@@ -73,7 +73,7 @@ namespace _2025_2C_ReservaEspectaculoORT.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("FechaLanzaiento")
+                    b.Property<DateTime>("FechaLanzamiento")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Foto")
@@ -234,7 +234,7 @@ namespace _2025_2C_ReservaEspectaculoORT.Migrations
                 {
                     b.HasBaseType("_2025_2C_ReservaEspectaculoORT.Models.Persona");
 
-                    b.Property<int>("legajo")
+                    b.Property<int>("Legajo")
                         .HasColumnType("int");
 
                     b.HasDiscriminator().HasValue("Empleado");
