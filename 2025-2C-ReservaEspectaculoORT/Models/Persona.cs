@@ -31,5 +31,17 @@ namespace _2025_2C_ReservaEspectaculoORT.Models
         [Required(ErrorMessage = ErrorMsg.Required)]
         [StringLength(10, ErrorMessage = ErrorMsg.StringLenght)]
         public string UserName { get; set; }
+        
+        public Persona(string nombre, string apellido, string direccion, string dni, string email, DateTime fechaAlta, string telefono, string userName)
+        {
+            this.Nombre = nombre;
+            this.Apellido = apellido;
+            this.Direccion = direccion;
+            this.Dni = dni;
+            this.Email = email;
+            this.FechaAlta = fechaAlta;
+            this.UserName = userName;
+
+        }
     }
 }
