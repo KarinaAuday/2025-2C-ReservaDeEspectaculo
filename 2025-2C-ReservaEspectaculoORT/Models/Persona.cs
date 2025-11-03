@@ -32,7 +32,7 @@ namespace _2025_2C_ReservaEspectaculoORT.Models
         [StringLength(10, ErrorMessage = ErrorMsg.StringLenght)]
         public string UserName { get; set; }
         
-        public Persona(string nombre, string apellido, string direccion, string dni, string email, DateTime fechaAlta, string telefono, string userName)
+       /* public Persona(string nombre, string apellido, string direccion, string dni, string email, DateTime fechaAlta, string telefono, string userName)
         {
             this.Nombre = nombre;
             this.Apellido = apellido;
@@ -42,6 +42,6 @@ namespace _2025_2C_ReservaEspectaculoORT.Models
             this.FechaAlta = fechaAlta;
             this.UserName = userName;
 
-        }
+        }*/
     }
 }

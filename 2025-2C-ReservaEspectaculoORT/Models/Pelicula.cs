@@ -27,5 +27,20 @@ namespace _2025_2C_ReservaEspectaculoORT.Models
         public List<Funcion> Funciones { get; set; } = new List<Funcion>();
 
         public Genero Genero { get; set; }
+
+        public Pelicula (string descripcion, string titulo, DateTime fechaLanzamiento, string foto, Genero genero)
+        {
+            Descripcion = descripcion;
+            Titulo = titulo;
+            FechaLanzamiento = fechaLanzamiento;
+            Foto = foto;
+            Genero = genero;
+            Funciones = new List<Funcion>();
+        }
+        public Pelicula()
+        {
+            
+        }
     }
+
 }
