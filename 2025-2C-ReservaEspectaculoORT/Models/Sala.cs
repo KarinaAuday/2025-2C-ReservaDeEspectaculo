@@ -22,5 +22,18 @@ namespace _2025_2C_ReservaEspectaculoORT.Models
         public TipoSala ? TipoSala { get; set; }
 
         public List<Funcion> Funciones { get; set; } = new List<Funcion>();
+
+        public Sala(int cantButacas, int num, int tipoSalaId)
+        {
+            this.CapacidadButacas = cantButacas;
+            this.Numero = num;
+            this.TipoSalaId = tipoSalaId;
+        }
+
+        public Sala()
+        {
+            
+        }
+
     }
 }

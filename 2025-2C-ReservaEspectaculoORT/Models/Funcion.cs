@@ -18,8 +18,8 @@ namespace _2025_2C_ReservaEspectaculoORT.Models
 
         [Required(ErrorMessage = ErrorMsg.Required)]
         public DateTime Fecha { get; set; }
-        public Sala ? Sala { get; set; }
-        public Pelicula ? Pelicula { get; set; }  
+        public Sala? Sala { get; set; }
+        public Pelicula? Pelicula { get; set; }
         public List<Reserva> Reservas { get; set; } = new List<Reserva>();
 
         [Required(ErrorMessage = ErrorMsg.Required)]
@@ -29,5 +29,24 @@ namespace _2025_2C_ReservaEspectaculoORT.Models
         [Required(ErrorMessage = ErrorMsg.Required)]
         [RegularExpression(@"^\d+$", ErrorMessage = ErrorMsg.SoloNumeros)]
         public int SalaId { get; set; }
+
+
+        public Funcion(int butacasDisponibles, bool confirmada, string desc, DateTime fecha, int peliId, int salaId)
+        {
+            this.ButacasDisponibles = butacasDisponibles;
+            this.Confirmada = confirmada;
+            this.Descripcion = desc;
+            this.Fecha = fecha;
+            this.PeliculaId = peliId;
+            this.SalaId = salaId;
+        }
+
+        public Funcion()
+        {
+            
+        }
     }
-}
+
+    
+
+    }

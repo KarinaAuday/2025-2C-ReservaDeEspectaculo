@@ -17,5 +17,6 @@ namespace _2025_2C_ReservaEspectaculoORT.Models
         public double Precio { get; set; }
 
         public List<Sala> Salas { get; set; } = new List<Sala>();
+
     }
 }
