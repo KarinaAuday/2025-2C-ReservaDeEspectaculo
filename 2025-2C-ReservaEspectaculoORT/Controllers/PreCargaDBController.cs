@@ -36,7 +36,7 @@ namespace _2025_2C_ReservaEspectaculoORT.Controllers
             new Pelicula("pelicula atrapante del hombre arania", "Spiderman", new DateTime(2001,04,4), "aca va 2do url", Genero.Accion),
             new Pelicula("pelicula fantastica del ninio que vivio", "Harry Potter y la piedra filosofal", new DateTime(1997,4,6),"aca 3er url", Genero.Fantasia),
             new Pelicula("pelicula del estudio ghibili de una criatura muy amigable", "Mi vecino Totoro",new DateTime(2010,5,6),"aca va 4to url" ,Genero.Animacion)
-            };
+        };
 
        
 
@@ -57,17 +57,21 @@ namespace _2025_2C_ReservaEspectaculoORT.Controllers
             _context.SaveChanges();
 
             Funcion f1 = new Funcion(100, true, "Funcion de la pelicula snoopy", new DateTime(2025, 7, 10, 18, 30, 0), peliculas[0].Id, s1.Id);
-            Funcion f2 = new Funcion(80, true, "Funcion de la pelicula spiderman", new DateTime(2025, 7, 11, 20, 0, 0), peliculas[1].Id, s2.Id);
+            Funcion f2 = new Funcion(80, true, "Funcion de la pelicula spiderman", new DateTime(2025, 12, 11, 20, 0, 0), peliculas[1].Id, s2.Id);
             Funcion f3 = new Funcion(120, true, "Funcion de la pelicula harry potter", new DateTime(2025, 7, 12, 16, 0, 0), peliculas[2].Id, s1.Id);
             Funcion f4 = new Funcion(90, true, "Funcion de la pelicula totoro", new DateTime(2025, 7, 13, 19, 30, 0), peliculas[3].Id, s2.Id);
-
-            //Reserva r1 = new Reserva { CantidadButacas = 2, ClienteId = clientes[0].id, FuncionId = f1.Id };
-
 
             _context.Funcion.Add(f1);
             _context.Funcion.Add(f2);
             _context.Funcion.Add(f3);
             _context.Funcion.Add(f4);
+            _context.SaveChanges();
+
+            Reserva r1 = new Reserva { CantidadButacas = 2, ClienteId = clientes[0].id, FuncionId = f1.Id };
+            _context.Reserva.Add(r1);
+            _context.SaveChanges();
+            Reserva r2 = new Reserva { CantidadButacas = 1, ClienteId = clientes[1].id, FuncionId = f2.Id };
+            _context.Reserva.Add(r2);
             _context.SaveChanges();
         }
 
@@ -81,14 +85,6 @@ namespace _2025_2C_ReservaEspectaculoORT.Controllers
 
         }
 
-        public IActionResult InicializarDB()
-        {
-            crearClientes();
-            crearEmpleados();
-            crearPeliculas();
-            inicializarFunciones();
-            return RedirectToAction("Index", "Home");
-        }
 
         private void crearEmpleados()
         {
@@ -108,6 +104,14 @@ namespace _2025_2C_ReservaEspectaculoORT.Controllers
                 _context.SaveChanges();
             }
             
+        }
+        public IActionResult InicializarDB()
+        {
+            crearClientes();
+            crearEmpleados();
+            crearPeliculas();
+            inicializarFunciones();
+            return RedirectToAction("Index", "Home");
         }
     }
 }
