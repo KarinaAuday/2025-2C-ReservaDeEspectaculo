@@ -28,7 +28,13 @@ namespace _2025_2C_ReservaEspectaculoORT.Controllers
             new ("pelicula de snoopy", "snoopy and charlie brown", new DateTime (2004,12,3), "aca va url foto",  Genero.Familiar),
             new ("pelicula atrapante del hombre arania", "Spiderman", new DateTime(2001,04,4), "aca va 2do url", Genero.Accion),
             new ("pelicula fantastica del ninio que vivio", "Harry Potter y la piedra filosofal", new DateTime(1997,4,6),"aca 3er url", Genero.Fantasia),
-            new ("pelicula del estudio ghibili de una criatura muy amigable", "Mi vecino Totoro", (2010,5,6),"aca va 4to url" ,Genero.Animacion)
+            new ("pelicula del estudio ghibili de una criatura muy amigable", "Mi vecino Totoro",new DateTime(2010,5,6),"aca va 4to url" ,Genero.Animacion)
             };
+        private List<Empleado> empleados = new List<Empleado>
+        {
+            new () {Nombre = "Norma", Apellido = "Gonzales", Direccion="Vidal 1788", Dni="45698789", Email="norma@gmail.com", Telefono="89864398", UserName="normaempleada", Legajo = 1 },
+            new Empleado {Nombre = "Leon", Apellido = "Juarez", Direccion="Pampa 5090", Dni="43567421", Email="juarezleon@gmail.com", Telefono="896543276", UserName="leonempleaod", Legajo = 2 },
+
+        };
     }
 }

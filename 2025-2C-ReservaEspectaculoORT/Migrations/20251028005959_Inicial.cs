@@ -40,7 +40,7 @@ namespace _2025_2C_ReservaEspectaculoORT.Migrations
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     FechaAlta = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Nombre = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Telefono = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Telefono = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UserName = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
                     Discriminator = table.Column<string>(type: "nvarchar(8)", maxLength: 8, nullable: false),
                     Legajo = table.Column<int>(type: "int", nullable: true)
