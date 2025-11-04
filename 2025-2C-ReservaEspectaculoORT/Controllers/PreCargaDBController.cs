@@ -32,10 +32,10 @@ namespace _2025_2C_ReservaEspectaculoORT.Controllers
 
         private List<Pelicula> peliculas = new List<Pelicula>
         {
-            new Pelicula("pelicula de snoopy", "snoopy and charlie brown", new DateTime (2004,12,3), "aca va url foto",  Genero.Familiar),
-            new Pelicula("pelicula atrapante del hombre arania", "Spiderman", new DateTime(2001,04,4), "aca va 2do url", Genero.Accion),
-            new Pelicula("pelicula fantastica del ninio que vivio", "Harry Potter y la piedra filosofal", new DateTime(1997,4,6),"aca 3er url", Genero.Fantasia),
-            new Pelicula("pelicula del estudio ghibili de una criatura muy amigable", "Mi vecino Totoro",new DateTime(2010,5,6),"aca va 4to url" ,Genero.Animacion)
+            new Pelicula("pelicula de snoopy", "snoopy and charlie brown", new DateTime (2004,12,3), "~/img/snoopy.png",  Genero.Familiar),
+            new Pelicula("pelicula atrapante del hombre arania", "Spiderman", new DateTime(2001,04,4), "~/img/spiderman.png", Genero.Accion),
+            new Pelicula("pelicula fantastica del ninio que vivio", "Harry Potter y la piedra filosofal", new DateTime(1997,4,6),"~/img/harry-potter.png", Genero.Fantasia),
+            new Pelicula("pelicula del estudio ghibili de una criatura muy amigable", "Mi vecino Totoro",new DateTime(2010,5,6),"~/img/mi-vecino-totoro.jpg" ,Genero.Animacion)
         };
 
        
