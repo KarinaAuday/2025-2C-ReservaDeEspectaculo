@@ -32,10 +32,10 @@ namespace _2025_2C_ReservaEspectaculoORT.Controllers
 
         private List<Pelicula> peliculas = new List<Pelicula>
         {
-            new Pelicula("pelicula de snoopy", "snoopy and charlie brown", new DateTime (2004,12,3), "~/img/snoopy.png",  Genero.Familiar),
-            new Pelicula("pelicula atrapante del hombre arania", "Spiderman", new DateTime(2001,04,4), "~/img/spiderman.png", Genero.Accion),
-            new Pelicula("pelicula fantastica del ninio que vivio", "Harry Potter y la piedra filosofal", new DateTime(1997,4,6),"~/img/harry-potter.png", Genero.Fantasia),
-            new Pelicula("pelicula del estudio ghibili de una criatura muy amigable", "Mi vecino Totoro",new DateTime(2010,5,6),"~/img/mi-vecino-totoro.jpg" ,Genero.Animacion)
+            new Pelicula("pelicula de snoopy", "snoopy and charlie brown", new DateTime (2004,12,3), "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRnVRqs_-J4GTDN5GAI1sgATxdU1I7xwg-XSQ&s",  Genero.Familiar),
+            new Pelicula("pelicula atrapante del hombre arania", "Spiderman", new DateTime(2001,04,4), "https://m.media-amazon.com/images/M/MV5BNmY2YmE3NzgtYTE3Ny00MGY0LTk0MmQtYTI5NTc0MDQ5ZmM4XkEyXkFqcGc@._V1_.jpg", Genero.Accion),
+            new Pelicula("pelicula fantastica del ninio que vivio", "Harry Potter y la piedra filosofal", new DateTime(1997,4,6),"https://estaticos-cdn.prensaiberica.es/clip/faf42983-8792-46e1-8b1b-9a7b50cfdeee_alta-libre-aspect-ratio_default_0.jpg", Genero.Fantasia),
+            new Pelicula("pelicula del estudio ghibili de una criatura muy amigable", "Mi vecino Totoro",new DateTime(2010,5,6),"https://pics.filmaffinity.com/Mi_vecino_Totoro-520161596-large.jpg" ,Genero.Animacion)
         };
 
        
