@@ -26,6 +26,8 @@ namespace _2025_2C_ReservaEspectaculoORT.Controllers
             return View(await reservaEspectaculoContext.ToListAsync());
         }
 
+       // public async Task<IActionResult> Reservar()
+
         // GET: Reservas/Details/5
         public async Task<IActionResult> Details(int? id)
         {

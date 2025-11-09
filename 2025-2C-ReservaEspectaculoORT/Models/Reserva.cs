@@ -30,6 +30,7 @@ namespace _2025_2C_ReservaEspectaculoORT.Models
         {
             this.CantidadButacas = cantButacas;
             this.Activa = true;
+            this.FechaAlta = DateTime.Now;
             this.ClienteId = idCliente;
             this.FuncionId = idFuncion;
         }

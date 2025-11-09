@@ -61,7 +61,7 @@ namespace _2025_2C_ReservaEspectaculoORT.Controllers
             _context.SaveChanges();
 
             DateTime ahora = DateTime.Now;
-            DateTime sieteDias = DateTime.Now.AddDays(7);   
+            DateTime sieteDias = DateTime.Now.AddDays(9);   
 
             Funcion f1 = new Funcion(100, true, s1.TipoSala.Nombre, sieteDias, peliculas[0].Id, s1.Id);
             Funcion f2 = new Funcion(80, true, s2.TipoSala.Nombre, ahora, peliculas[1].Id, s2.Id);
