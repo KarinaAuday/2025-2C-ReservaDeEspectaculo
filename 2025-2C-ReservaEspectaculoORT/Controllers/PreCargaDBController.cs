@@ -32,13 +32,17 @@ namespace _2025_2C_ReservaEspectaculoORT.Controllers
 
         private List<Pelicula> peliculas = new List<Pelicula>
         {
-            new Pelicula("pelicula de snoopy", "snoopy and charlie brown", new DateTime (2004,12,3), "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRnVRqs_-J4GTDN5GAI1sgATxdU1I7xwg-XSQ&s",  Genero.Familiar),
-            new Pelicula("pelicula atrapante del hombre arania", "Spiderman", new DateTime(2001,04,4), "https://m.media-amazon.com/images/M/MV5BNmY2YmE3NzgtYTE3Ny00MGY0LTk0MmQtYTI5NTc0MDQ5ZmM4XkEyXkFqcGc@._V1_.jpg", Genero.Accion),
-            new Pelicula("pelicula fantastica del ninio que vivio", "Harry Potter y la piedra filosofal", new DateTime(1997,4,6),"https://estaticos-cdn.prensaiberica.es/clip/faf42983-8792-46e1-8b1b-9a7b50cfdeee_alta-libre-aspect-ratio_default_0.jpg", Genero.Fantasia),
-            new Pelicula("pelicula del estudio ghibili de una criatura muy amigable", "Mi vecino Totoro",new DateTime(2010,5,6),"https://pics.filmaffinity.com/Mi_vecino_Totoro-520161596-large.jpg" ,Genero.Animacion)
+            new Pelicula("Snoopy y su inseparable pájaro Emilio persiguen a su gran enemigo, el Barón Rojo. Mientras tanto, su mejor amigo, Charlie Brown, " +
+                "se embarca a su vez en una aventura de proporciones épicas.", "Snoopy y Charlie Brown", new DateTime (2004,12,3), "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRnVRqs_-J4GTDN5GAI1sgATxdU1I7xwg-XSQ&s",  Genero.Familiar),
+            new Pelicula("Luego de sufrir la picadura de una araña genéticamente modificada, un estudiante de secundaria tímido y torpe adquiere increíbles capacidades como arácnido. " +
+                "Pronto comprenderá que su misión es utilizarlas para luchar contra el mal y defender a sus vecinos.", "Spiderman", new DateTime(2001,04,4), "https://m.media-amazon.com/images/M/MV5BNmY2YmE3NzgtYTE3Ny00MGY0LTk0MmQtYTI5NTc0MDQ5ZmM4XkEyXkFqcGc@._V1_.jpg", Genero.Accion),
+            new Pelicula("Durante su primer año en la escuela de magia y hechicería de Hogwarts, Harry Potter descubre que un malévolo y poderoso mago" +
+                " llamado Voldemort está en busca de una piedra filosofal que alarga la vida de quien la posee.", "Harry Potter y la piedra filosofal", new DateTime(1997,4,6),"https://estaticos-cdn.prensaiberica.es/clip/faf42983-8792-46e1-8b1b-9a7b50cfdeee_alta-libre-aspect-ratio_default_0.jpg", Genero.Fantasia),
+            new Pelicula("Esta historia animada del director Hayao Miyazaki sigue a las estudiantes y hermanas Satsuke y Mei mientras se establecen en su casa de campo con su padre y esperan a que su madre se recupere de una enfermedad en un hospital del área. " +
+                "Cuando las hermanas exploran su nueva casa, descubren y hacen amistad con unos duendes juguetones.", "Mi vecino Totoro",new DateTime(2010,5,6),"https://pics.filmaffinity.com/Mi_vecino_Totoro-520161596-large.jpg" ,Genero.Animacion)
         };
 
-       
+
 
         private void inicializarFunciones()
         {
@@ -56,10 +60,13 @@ namespace _2025_2C_ReservaEspectaculoORT.Controllers
             _context.Sala.Add(s2);
             _context.SaveChanges();
 
-            Funcion f1 = new Funcion(100, true, "Funcion de la pelicula snoopy", new DateTime(2025, 7, 10, 18, 30, 0), peliculas[0].Id, s1.Id);
-            Funcion f2 = new Funcion(80, true, "Funcion de la pelicula spiderman", new DateTime(2025, 12, 11, 20, 0, 0), peliculas[1].Id, s2.Id);
-            Funcion f3 = new Funcion(120, true, "Funcion de la pelicula harry potter", new DateTime(2025, 7, 12, 16, 0, 0), peliculas[2].Id, s1.Id);
-            Funcion f4 = new Funcion(90, true, "Funcion de la pelicula totoro", new DateTime(2025, 7, 13, 19, 30, 0), peliculas[3].Id, s2.Id);
+            DateTime ahora = DateTime.Now;
+            DateTime sieteDias = DateTime.Now.AddDays(7);   
+
+            Funcion f1 = new Funcion(100, true, s1.TipoSala.Nombre, sieteDias, peliculas[0].Id, s1.Id);
+            Funcion f2 = new Funcion(80, true, s2.TipoSala.Nombre, ahora, peliculas[1].Id, s2.Id);
+            Funcion f3 = new Funcion(120, true, s1.TipoSala.Nombre, ahora, peliculas[2].Id, s1.Id);
+            Funcion f4 = new Funcion(90, true, s2.TipoSala.Nombre, ahora, peliculas[3].Id, s2.Id);
 
             _context.Funcion.Add(f1);
             _context.Funcion.Add(f2);
@@ -67,10 +74,10 @@ namespace _2025_2C_ReservaEspectaculoORT.Controllers
             _context.Funcion.Add(f4);
             _context.SaveChanges();
 
-            Reserva r1 = new Reserva { CantidadButacas = 2, ClienteId = clientes[0].id, FuncionId = f1.Id };
+            Reserva r1 = new Reserva(2, clientes[0].id, f1.Id);
             _context.Reserva.Add(r1);
             _context.SaveChanges();
-            Reserva r2 = new Reserva { CantidadButacas = 1, ClienteId = clientes[1].id, FuncionId = f2.Id };
+            Reserva r2 = new Reserva(1, clientes[1].id, f2.Id);
             _context.Reserva.Add(r2);
             _context.SaveChanges();
         }
