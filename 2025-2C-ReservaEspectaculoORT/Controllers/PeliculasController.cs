@@ -24,6 +24,10 @@ namespace _2025_2C_ReservaEspectaculoORT.Controllers
         {
             return View(await _context.Pelicula.ToListAsync());
         }
+        public async Task<IActionResult> Cartelera()
+        {
+            return View(await _context.Pelicula.ToListAsync());
+        }
 
         // GET: Peliculas/Details/5
         public async Task<IActionResult> Details(int? id)
