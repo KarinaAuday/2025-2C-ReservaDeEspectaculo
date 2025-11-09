@@ -1,21 +1,23 @@
 ﻿@model IEnumerable<_2025_2C_ReservaEspectaculoORT.Models.Pelicula>
 
 <head><title>Cartelera</title></head>
-<body>
+
 <div class="card-group">
-        @foreach(var item in Model)
-        {
-            <div class="card">
-                <img src="@item.Foto" class="card-img-top" alt="...">
+    @foreach(var item in Model)
+    {
+        <div class="col-md-3 mb-4">
+            <div class="card h-100">
+                <img src="@item.Foto" class="card-img-top-cartelera" alt="...">
                 <div class="card-body">
                     <h5 class="card-title">@item.Titulo</h5>
                     <p class="card-text">@item.Descripcion</p>
-                    <a asp-area="" asp-controller="Peliculas" asp-action="Details" asp-route-id="@item.Id">
-                        <button class="btn">Mas informacion</button>
-                    </a>
+                    
                 </div>
+               <div class="card-footer bg-transparent">
+                    <a class="btn btn-light" asp-area="" asp-controller="Peliculas" asp-action="Details" asp-route-id="@item.Id">Mas informacion                    </a>
+                    <a class="btn btn-primary" asp-area="" asp-controller="Funciones" asp-action="Reservar" asp-route-id="@item.Id">Reservar</a>
+                </div>     
             </div>
-        }
+        </div>
+    }
 </div>
-</body>
-

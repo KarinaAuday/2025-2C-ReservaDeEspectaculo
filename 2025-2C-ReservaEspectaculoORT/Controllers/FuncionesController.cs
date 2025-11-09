@@ -55,7 +55,7 @@ namespace _2025_2C_ReservaEspectaculoORT.Controllers
         // GET: Funciones/Create
         public IActionResult Create()
         {
-            ViewData["PeliculaId"] = new SelectList(_context.Set<Pelicula>(), "Id", "Descripcion");
+            ViewData["PeliculaId"] = new SelectList(_context.Pelicula, "Id", "Id");
             ViewData["SalaId"] = new SelectList(_context.Sala, "Id", "Id");
             return View();
         }
