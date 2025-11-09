@@ -1,4 +1,5 @@
-﻿using _2025_2C_ReservaEspectaculoORT.Helpers;
+﻿using _2025_2C_ReservaEspectaculoORT.Controllers;
+using _2025_2C_ReservaEspectaculoORT.Helpers;
 using System.Collections;
 using System.ComponentModel.DataAnnotations;
 namespace _2025_2C_ReservaEspectaculoORT.Models
@@ -41,6 +42,7 @@ namespace _2025_2C_ReservaEspectaculoORT.Models
         {
             
         }
+       
     }
 
 }

@@ -25,8 +25,12 @@ namespace _2025_2C_ReservaEspectaculoORT.Controllers
             var reservaEspectaculoContext = _context.Funcion.Include(f => f.Pelicula).Include(f => f.Sala);
             return View(await reservaEspectaculoContext.ToListAsync());
         }
+        public async Task<IActionResult> ListarReservasFuturo()
+        {
+            var reservaEspectaculoContext = _context.Funcion.Include(f => f.Pelicula).Include(f => f.Sala);
+            return View(await reservaEspectaculoContext.ToListAsync());
+        }
 
-        
 
         // GET: Funciones/Details/5
         public async Task<IActionResult> Details(int? id)
