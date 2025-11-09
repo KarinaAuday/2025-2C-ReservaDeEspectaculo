@@ -21,8 +21,9 @@
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
+                    <ul class="navbar-nav ms-auto">
                         <li class="nav-item">
                             <a class="nav-link" asp-area="" asp-controller="Empleados" asp-action="Create">Crear empleado</a>
                         </li>
@@ -30,21 +31,18 @@
                             <a class="nav-link" asp-area="" asp-controller="Clientes" asp-action="Create">Crear usuario</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Funciones" asp-action="Create">Crear funcion</a>
+                            <a class="nav-link" asp-area="" asp-controller="Funciones" asp-action="Create">Crear función</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Peliculas" asp-action="Buscar">Buscar pelicula</a>
+                            <a class="nav-link" asp-area="" asp-controller="Peliculas" asp-action="Buscar">Buscar película</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Funciones" asp-action="Cartelera">Cartelera</a>
+                            <a class="nav-link" asp-area="" asp-controller="Peliculas" asp-action="Cartelera">Cartelera</a>
                         </li>
                     </ul>
                 </div>
-    
-
             </div>
         </nav>
-
     </header>
 
     <div class="container">
@@ -55,12 +53,15 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            <a asp-area="" class="nav-item" asp-controller="PreCargaDB" asp-action="InicializarDB">InicializarDB</a>
+            <br></br>
+            <button type="button" asp-area="" asp-controller="PreCargaDB" asp-action="InicializarDB" class="btn nav-item" style="background-color: #010120; border-color: #010120; color: white;">Inicializar Base de datos</button>
         </div>
     </footer>
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
+
 </body>
 </html>
