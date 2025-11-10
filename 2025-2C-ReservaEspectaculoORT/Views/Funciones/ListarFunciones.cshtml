@@ -1,15 +1,48 @@
-﻿@model IEnumerable<_2025_2C_ReservaEspectaculoORT.Models.Pelicula>
+﻿@model _2025_2C_ReservaEspectaculoORT.Models.Pelicula
 
 @{
     ViewData["Title"] = "ListarFunciones";
+    var cantButacas = (int?)ViewBag.CantButacas ?? 0;
+    // copilot Fix: Model is IEnumerable<Pelicula>, so we need to select Funciones from each Pelicula
+    var funcionesDisponibles = Model.Funciones
+        .Where(f => f.Fecha < DateTime.Now.AddDays(7)
+                 && f.Confirmada
+                 && f.ButacasDisponibles >= cantButacas)
+        .OrderBy(f => f.Fecha)
+        .ToList();
 }
 
 <h1>Funciones disponibles para @ViewBag.Pelicula.Titulo</h1>
 
-@foreach (var funcion in ViewBag.Pelicula.Funciones)
+@if (funcionesDisponibles.Count == 0)
 {
-  //  if (funcion.Fecha < DateTime.Now.AddDays(7) && funcion.Confirmada && funcion.ButacasDisponibles >= ViewBag.CantButacas)
-   // {
-        <p>tamo en japon</p>
-   // }    
+    <p>No hay funciones disponibles en los próximos 7 días con al menos @ViewBag.CantButacas butacas disponibles.</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Fecha</th>
+                <th>Hora</th>
+                <th>Sala</th>
+                <th>Butacas Disponibles</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var funcion in funcionesDisponibles)
+            {
+                <tr>
+                    <td>@funcion.Fecha.ToShortDateString()</td>
+                    <td>@funcion.Fecha.Hour.ToString() : @funcion.Fecha.Minute.ToString()</td>
+                    <td>@funcion.Sala?.Numero (@funcion.Sala?.TipoSala?.Nombre)</td>
+                    <td>@funcion.ButacasDisponibles</td>
+                    <td>
+                        <a asp-controller="Reservas" asp-action="Create" asp-route-funcionId="@funcion.Id"
+                        asp-route-cantButacas="@ViewBag.CantButacas" class="btn btn-primary">Reservar</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
 }

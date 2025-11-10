@@ -37,7 +37,7 @@ namespace _2025_2C_ReservaEspectaculoORT.Models
             FechaLanzamiento = fechaLanzamiento;
             Foto = foto;
             Genero = genero;
-            Funciones = new List<Funcion>();
+         //   Funciones = new List<Funcion>();
         }
         public Pelicula()
         {
