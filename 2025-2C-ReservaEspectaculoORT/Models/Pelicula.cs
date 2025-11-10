@@ -7,19 +7,20 @@ namespace _2025_2C_ReservaEspectaculoORT.Models
   
     public class Pelicula
     {
-        [Required(ErrorMessage = ErrorMsg.Required)]
-        [RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = ErrorMsg.SoloLetras)]
-        public string Descripcion { get; set; }
 
         [Required(ErrorMessage = ErrorMsg.Required)]
-        [RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = ErrorMsg.SoloLetras)]
+        [RegularExpression(@"^(?!\s*$).+", ErrorMessage= ErrorMsg.TodoMenosEspaciosVacios)]
         public string Titulo { get; set; }
 
+
         [Required(ErrorMessage = ErrorMsg.Required)]
-        
+        [RegularExpression(@"^(?!\s*$).+", ErrorMessage = ErrorMsg.TodoMenosEspaciosVacios)]
+        public string Descripcion { get; set; }
+
+
+        [Required(ErrorMessage = ErrorMsg.Required)]
         public DateTime FechaLanzamiento { get; set; }
 
-        
         public int Id { get; set; }
 
         [Required(ErrorMessage = ErrorMsg.Required)]

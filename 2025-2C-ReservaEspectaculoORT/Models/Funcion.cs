@@ -14,6 +14,7 @@ namespace _2025_2C_ReservaEspectaculoORT.Models
         public bool Confirmada { get; set; }
 
         [Required(ErrorMessage = ErrorMsg.Required)]
+        [RegularExpression(@"^(?!\s*$).+", ErrorMessage = ErrorMsg.TodoMenosEspaciosVacios)]
         public string Descripcion { get; set; }
 
         [Required(ErrorMessage = ErrorMsg.Required)]
