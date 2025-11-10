@@ -177,5 +177,38 @@ namespace _2025_2C_ReservaEspectaculoORT.Controllers
         {
             return _context.Funcion.Any(e => e.Id == id);
         }
+
+        // GET: muestra el formulario
+        [HttpGet]
+        public async Task<IActionResult> Reservar()
+        {
+            ViewBag.Titulo = new SelectList(_context.Pelicula, "Id", "Titulo");
+            return View();
+        }
+
+        // POST: recibe los datos del formulario
+        [HttpPost]
+        public async Task<IActionResult> Reservar(int id, int cantButacas)
+        {
+            TempData["cantButacas"] = cantButacas;
+
+            return RedirectToAction("ListarFunciones", new { idPelicula = id });
+        }
+
+        public IActionResult ListarFunciones(int idPelicula)
+        {
+            var pelicula = _context.Pelicula.FirstOrDefault(p => p.Id == idPelicula);
+
+            if (pelicula == null)
+                return NotFound();
+
+
+            ViewBag.Pelicula = pelicula;
+            ViewBag.ListaFunciones = new List<Funcion>(pelicula.Funciones);
+            ViewBag.CantButacas = TempData["cantButacas"];
+
+            return View();
+        }
+
     }
 }

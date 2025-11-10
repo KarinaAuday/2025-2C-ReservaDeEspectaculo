@@ -32,12 +32,14 @@ namespace _2025_2C_ReservaEspectaculoORT.Models
         public int SalaId { get; set; }
 
 
-        public Funcion(int butacasDisponibles, bool confirmada, string desc, DateTime fecha, int peliId, int salaId)
+        public Funcion(int butacasDisponibles, bool confirmada, string desc, DateTime fecha, Sala sala, Pelicula peli, int peliId, int salaId)
         {
             this.ButacasDisponibles = butacasDisponibles;
             this.Confirmada = confirmada;
             this.Descripcion = desc;
             this.Fecha = fecha;
+            this.Sala = sala;
+            this.Pelicula = peli;
             this.PeliculaId = peliId;
             this.SalaId = salaId;
         }

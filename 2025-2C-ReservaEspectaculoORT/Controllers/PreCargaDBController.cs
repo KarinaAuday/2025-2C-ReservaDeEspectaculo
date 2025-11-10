@@ -46,6 +46,7 @@ namespace _2025_2C_ReservaEspectaculoORT.Controllers
 
         private void inicializarFunciones()
         {
+            #region Crear TipoSala y Sala
             TipoSala Ts1 = new TipoSala { Nombre = "Sala 2D", Precio = 500 };
             _context.TipoSala.Add(Ts1);
             _context.SaveChanges();
@@ -59,27 +60,43 @@ namespace _2025_2C_ReservaEspectaculoORT.Controllers
             Sala s2 = new Sala(150, 2, Ts2.Id);
             _context.Sala.Add(s2);
             _context.SaveChanges();
+            #endregion
 
             DateTime ahora = DateTime.Now;
-            DateTime sieteDias = DateTime.Now.AddDays(9);   
+            DateTime noDisponible = DateTime.Now.AddDays(9);
 
-            Funcion f1 = new Funcion(100, true, s1.TipoSala.Nombre, sieteDias, peliculas[0].Id, s1.Id);
-            Funcion f2 = new Funcion(80, true, s2.TipoSala.Nombre, ahora, peliculas[1].Id, s2.Id);
-            Funcion f3 = new Funcion(120, true, s1.TipoSala.Nombre, ahora, peliculas[2].Id, s1.Id);
-            Funcion f4 = new Funcion(90, true, s2.TipoSala.Nombre, ahora, peliculas[3].Id, s2.Id);
+            #region Crear Funciones
+            Funcion f1 = new Funcion(100, true, generarDescripcionFuncion(peliculas[0], s1), noDisponible, s1, peliculas[0], peliculas[0].Id, s1.Id);
+            Funcion f2 = new Funcion(80, true, generarDescripcionFuncion(peliculas[1], s2), ahora, s2, peliculas[1], peliculas[1].Id, s2.Id);
+            Funcion f3 = new Funcion(120, true, generarDescripcionFuncion(peliculas[2], s1), ahora, s1, peliculas[2], peliculas[2].Id, s1.Id);
+            Funcion f4 = new Funcion(90, true, generarDescripcionFuncion(peliculas[3], s2), ahora, s2, peliculas[3], peliculas[3].Id, s2.Id);
 
             _context.Funcion.Add(f1);
             _context.Funcion.Add(f2);
             _context.Funcion.Add(f3);
             _context.Funcion.Add(f4);
             _context.SaveChanges();
+            
+            //peliculas[0].Funciones.Add(f1);
+            //peliculas[1].Funciones.Add(f2);
+            //peliculas[2].Funciones.Add(f3);
+            //peliculas[3].Funciones.Add(f4);
+            //_context.SaveChanges();
+            #endregion
 
+            #region Crear Reservas
             Reserva r1 = new Reserva(2, clientes[0].id, f1.Id);
             _context.Reserva.Add(r1);
             _context.SaveChanges();
             Reserva r2 = new Reserva(1, clientes[1].id, f2.Id);
             _context.Reserva.Add(r2);
             _context.SaveChanges();
+            #endregion
+        }
+
+        private string generarDescripcionFuncion(Pelicula pelicula, Sala sala)
+        {
+            return $"{pelicula.Titulo} - {sala.TipoSala.Nombre}";
         }
 
         private void crearClientes()

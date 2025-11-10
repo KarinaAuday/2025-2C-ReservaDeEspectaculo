@@ -1,7 +1,7 @@
 ﻿@model _2025_2C_ReservaEspectaculoORT.Models.Pelicula
 
 @{
-    ViewData["Title"] = "Reserva";
+    ViewData["Title"] = "Reservar";
 }
 
 
@@ -21,9 +21,9 @@
     </form>
 </div> *@
 
-<h1>Reserva</h1>
+<h1>Reservar</h1>
 
-<form asp-action="Reserva" method="post">
+<form asp-action="Reservar" method="post">
     <div class="form-group">
         <label for="id">Película</label>
         <select id="id" name="id" class="form-control" asp-items="ViewBag.Titulo">
