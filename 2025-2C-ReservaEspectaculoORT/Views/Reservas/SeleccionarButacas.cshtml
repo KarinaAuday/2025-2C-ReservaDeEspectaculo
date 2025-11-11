@@ -1,0 +1,22 @@
+﻿@model _2025_2C_ReservaEspectaculoORT.Models.Reserva
+
+@{
+    ViewData["Title"] = "Reservar";
+}
+
+@* arreglar front *@
+<h1>Seleccionar Butacas</h1>
+<br></br>
+<div>
+    <form asp-action="SeleccionarButacas" method="post">
+        <input type="hidden" name="id" value="@ViewBag.PeliculaId" />
+        <div class="form-group">
+            <label name="cantButacas" class="control-label"></label>
+            <input name="cantButacas" class="form-control" />
+            <span class="text-danger"></span>
+        </div>
+        <button type="submit" class="btn nav-item" style="background-color: #010120; border-color: #010120; color: white;">Continuar</button>
+    </form>
+</div>
+
+

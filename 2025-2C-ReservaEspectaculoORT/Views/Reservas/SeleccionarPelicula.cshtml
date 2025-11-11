@@ -1,0 +1,21 @@
+﻿@model _2025_2C_ReservaEspectaculoORT.Models.Pelicula
+
+@{
+    ViewData["Title"] = "Reservar";
+}
+
+
+<h1>Seleccionar Pelicula</h1>
+<br></br>
+<div>
+    <form asp-action="SeleccionarPelicula" method="post">
+        <div class="form-group">
+            <label for="id">Película</label>
+            <select id="id" name="id" class="form-control" asp-items="ViewBag.Titulo">
+                <option value="">-- Seleccioná una película --</option>
+            </select>
+        </div>
+        <button type="submit" class="btn nav-item" style="background-color: #010120; border-color: #010120; color: white;">Continuar</button>
+    </form>
+</div>
+

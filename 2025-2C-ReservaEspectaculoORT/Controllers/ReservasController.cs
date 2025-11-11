@@ -26,7 +26,7 @@ namespace _2025_2C_ReservaEspectaculoORT.Controllers
             return View(await reservaEspectaculoContext.ToListAsync());
         }
 
-       // public async Task<IActionResult> Reservar()
+        // public async Task<IActionResult> Reservar()
 
         // GET: Reservas/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -167,6 +167,38 @@ namespace _2025_2C_ReservaEspectaculoORT.Controllers
         private bool ReservaExists(int id)
         {
             return _context.Reserva.Any(e => e.Id == id);
+        }
+
+
+        // GET: Reservas
+        public async Task<IActionResult> SeleccionarPelicula()
+        {
+            ViewBag.Titulo = new SelectList(_context.Pelicula, "Id", "Titulo");
+            return View();
+        }
+
+
+        //POST
+        [HttpPost]
+        public async Task<IActionResult> SeleccionarPelicula(int id)
+        {
+            return RedirectToAction("SeleccionarButacas", "Reservas", new { idPelicula = id });
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> SeleccionarButacas(int idPelicula)
+        {
+            var pelicula = await _context.Pelicula.FindAsync(idPelicula);
+
+            ViewBag.PeliculaId = pelicula.Id;
+            return View();
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> SeleccionarButacas(int cantButacas, int id)
+        {
+            return RedirectToAction("ListarFunciones", "Funciones", new { idPelicula = id });
         }
     }
 }
