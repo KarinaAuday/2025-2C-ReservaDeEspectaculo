@@ -1,0 +1,15 @@
+﻿<form asp-action="SeleccionarButacas" method="post">
+
+    <input type="hidden" name="idPelicula" value="@ViewBag.idPelicula" />
+
+    <div class="form-group">
+
+        <label>Cantidad de Butacas</label>
+
+        <input type="number" name="cantButacas" class="form-control" min="1" />
+
+    </div>
+
+    <button type="submit" class="btn btn-primary">Siguiente</button>
+
+</form>

@@ -189,11 +189,25 @@ namespace _2025_2C_ReservaEspectaculoORT.Controllers
 
         // POST: recibe los datos del formulario
         [HttpPost]
-        public async Task<IActionResult> Reservar(int id, int cantButacas)
+        public async Task<IActionResult> Reservar(int idPelicula)
+        {
+            //var pelicula = await _context.Pelicula.FindAsync(id);
+            ViewBag.idPelicula = idPelicula;
+            return RedirectToAction("SeleccionarButacas", "Funciones", new {idPelicula = idPelicula});
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> SeleccionarButacas(int idPelicula)
+        {
+            ViewBag.idPelicula = idPelicula;
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> SeleccionarButacas(int cantButacas, int id)
         {
             TempData["cantButacas"] = cantButacas;
-
-            return RedirectToAction("ListarFunciones", new { idPelicula = id });
+            return RedirectToAction("ListarFunciones", new { idPelicula = id});
         }
 
         public async Task<IActionResult> ListarFunciones(int idPelicula)

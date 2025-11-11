@@ -77,11 +77,6 @@ namespace _2025_2C_ReservaEspectaculoORT.Controllers
             _context.Funcion.Add(f4);
             _context.SaveChanges();
 
-            //peliculas[0].Funciones.Add(f1);
-            //peliculas[1].Funciones.Add(f2);
-            //peliculas[2].Funciones.Add(f3);
-            //peliculas[3].Funciones.Add(f4);
-            //_context.SaveChanges();
             #endregion
 
             #region Crear Reservas
