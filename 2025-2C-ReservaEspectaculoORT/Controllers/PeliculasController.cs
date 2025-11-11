@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using _2025_2C_ReservaEspectaculoORT.Data;
 using _2025_2C_ReservaEspectaculoORT.Models;
+using Microsoft.IdentityModel.Tokens;
 
 namespace _2025_2C_ReservaEspectaculoORT.Controllers
 {
@@ -124,15 +125,12 @@ namespace _2025_2C_ReservaEspectaculoORT.Controllers
         {
             if (!String.IsNullOrEmpty(titulo))
             {
-
                 var peliculas = _context.Pelicula.Where(p => p.Titulo.ToUpper().Contains(titulo.ToUpper())).ToList();
                 if (peliculas.Count == 0)
                 {
                     ViewBag.Mensaje = "No se encontraron resultados";
                 }
-
-                return View("Buscador", peliculas);
-
+                    return View("Buscador", peliculas);
             }
             else
             {

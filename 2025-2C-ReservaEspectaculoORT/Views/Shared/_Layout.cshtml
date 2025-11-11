@@ -21,7 +21,6 @@
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item">
@@ -34,15 +33,16 @@
                             <a class="nav-link" asp-area="" asp-controller="Funciones" asp-action="Create">Crear función</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Peliculas" asp-action="Buscar">Buscar película</a>
-                        </li>
-                        <li class="nav-item">
                             <a class="nav-link" asp-area="" asp-controller="Peliculas" asp-action="Cartelera">Cartelera</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" asp-area="" asp-controller="Reservas" asp-action="SeleccionarPelicula">Reservar</a>
                         </li>
                     </ul>
+                    <form class="d-flex" asp-area="" asp-controller="Peliculas" asp-action="Buscar">
+                        <input class="form-control me-2" type="search" name="titulo" placeholder="Buscar pelicula" aria-label="Buscar">
+                        <button class="btn-buscar" type="submit">Buscar</button>
+                    </form>
                 </div>
             </div>
         </nav>
@@ -56,7 +56,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            <br></br>
+            <br>
             <a asp-area="" asp-controller="PreCargaDB" asp-action="InicializarDB">
                 <button type="button" class="btn nav-item" style="background-color: #010120; border-color: #010120; color: white;">Inicializar Base de datos</button>
             </a>

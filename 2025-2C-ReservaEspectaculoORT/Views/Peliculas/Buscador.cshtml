@@ -1,9 +1,7 @@
 ﻿@model List<_2025_2C_ReservaEspectaculoORT.Models.Pelicula>
-<p>Busqueda de peliculas por nombre</p>
-<form method="get" action='@Url.Action("Buscar", "Peliculas")'>
-	<input type= "text" name="titulo" placeholder="Nombre de la pelicula" />
-	<input type="submit" value="Buscar" />
-</form>
+
+<h1>Resultado de la busqueda</h1>
+<br>
 
 @if (!String.IsNullOrEmpty(ViewBag.Mensaje))
 {
@@ -11,12 +9,16 @@
 }
 @if (Model != null && Model.Count > 0)
 {
-    <h2>Resultado de la busqueda</h2>
-    <ul>
+    <ul class="list-group">
         @foreach (var pelicula in Model)
         {
-            <li>@pelicula.Titulo</li>
+            <li class="list-group-item d-flex justify-content-between align-items-start">
+                <div class="ms-2 me-auto">
+                    <p style="font-size: 20px;">@pelicula.Titulo</p>
+                    <img src="@pelicula.Foto" width="100" height="150"/>
+                </div>
+                    <a class="btn btn-light" asp-area="" asp-controller="Peliculas" asp-action="Details" asp-route-id="@pelicula.Id">Mas informacion</a>
+            </li>
         }
     </ul>
-
 }

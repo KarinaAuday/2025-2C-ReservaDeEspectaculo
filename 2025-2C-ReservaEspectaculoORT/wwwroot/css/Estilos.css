@@ -111,3 +111,13 @@ body {
     align-items: center; /* Centrado vertical */
 
 }
+
+.btn-buscar {
+    background-color: transparent;
+    border: 2px solid white;
+    border-radius: 10px;
+    color: white;
+    padding: 12px 16px;
+    font-size: 16px;
+    cursor: pointer;
+}

@@ -6,16 +6,17 @@
 
 @* arreglar front *@
 <h1>Seleccionar Butacas</h1>
-<br></br>
+<br>
 <div>
     <form asp-action="SeleccionarButacas" method="post">
         <input type="hidden" name="id" value="@ViewBag.PeliculaId" />
         <div class="form-group">
-            <label name="cantButacas" class="control-label"></label>
-            <input name="cantButacas" class="form-control" />
+            <label name="cantButacas" class="control-label">Cantidad de butacas:</label>
+            <input type="number" name="cantButacas" class="form-control" min="1" required/> 
             <span class="text-danger"></span>
         </div>
-        <button type="submit" class="btn nav-item" style="background-color: #010120; border-color: #010120; color: white;">Continuar</button>
+        <br>
+        <button type="submit" class="btn nav-item" style="background-color: #010120; border-color: #010120; color: white;">Siguiente</button>
     </form>
 </div>
 

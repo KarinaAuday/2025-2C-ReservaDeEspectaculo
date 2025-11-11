@@ -14,8 +14,8 @@
                     
                 </div>
                <div class="card-footer bg-transparent">
-                    <a class="btn btn-light" asp-area="" asp-controller="Peliculas" asp-action="Details" asp-route-id="@item.Id">Mas informacion                    </a>
-                    <a class="btn btn-primary" asp-area="" asp-controller="Funciones" asp-action="Reservar" asp-route-id="@item.Id">Reservar</a>
+                    <a class="btn btn-light me-2" asp-area="" asp-controller="Peliculas" asp-action="Details" asp-route-id="@item.Id">Mas informacion</a>
+                    <a class="btn btn-primary" asp-area="" asp-controller="Reservas" asp-action="SeleccionarButacas" asp-route-idPelicula="@item.Id">Reservar</a>
                 </div>     
             </div>
         </div>
