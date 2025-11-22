@@ -49,10 +49,18 @@ namespace _2025_2C_ReservaEspectaculoORT.Controllers
         }
 
         // GET: Reservas/Create
-        public IActionResult Create()
+        public IActionResult Create(int funcionId, int CantidadButacas)
         {
-            ViewData["ClienteId"] = new SelectList(_context.Set<Cliente>(), "id", "Apellido");
-            ViewData["FuncionId"] = new SelectList(_context.Funcion, "Id", "Descripcion");
+            ViewBag.ClienteId = 1;
+            ViewBag.FuncionId = funcionId;
+            ViewBag.CantButacas = CantidadButacas;
+
+            var funcion = _context.Funcion.Include(f => f.Pelicula).FirstOrDefault(f => f.Id == funcionId);
+            if (funcion == null)
+                return NotFound();
+
+            ViewBag.Funcion = funcion;
+
             return View();
         }
 
@@ -61,18 +69,49 @@ namespace _2025_2C_ReservaEspectaculoORT.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Activa,CantidadButacas,FechaAlta,ClienteId,FuncionId")] Reserva reserva)
+        public async Task<IActionResult> Create([Bind("Id,Activa,CantidadButacas,ClienteId,FuncionId")] Reserva reserva)
         {
+            if (ModelState.IsValid)
+            {
+                reserva.FechaAlta = DateTime.Now;
+                _context.Add(reserva);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            //ViewData["ClienteId"] = new SelectList(_context.Set<Cliente>(), "id", "Apellido", reserva.ClienteId);
+            //ViewData["FuncionId"] = new SelectList(_context.Funcion, "Id", "Descripcion", reserva.FuncionId);
+            return View(reserva);
+        }
+
+        // GET: Reservas/Generate
+        public IActionResult GenerarReserva(int funcionId, int cantButacas)
+        {
+            ViewBag.CantButacas = cantButacas;
+            var funcion = _context.Funcion.Include(f => f.Pelicula).FirstOrDefault(f => f.Id == funcionId);
+            if (funcion == null)
+                return NotFound();
+
+            ViewBag.Funcion = funcion;
+
+            return View();
+        }
+
+
+        // POST: Reservas/Generate
+        [HttpPost]
+        public async Task<IActionResult> GenerarReserva(Reserva reserva)
+        {
+
             if (ModelState.IsValid)
             {
                 _context.Add(reserva);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ClienteId"] = new SelectList(_context.Set<Cliente>(), "id", "Apellido", reserva.ClienteId);
-            ViewData["FuncionId"] = new SelectList(_context.Funcion, "Id", "Descripcion", reserva.FuncionId);
-            return View(reserva);
+
+            return RedirectToAction("Index", "Home");
         }
+
 
         // GET: Reservas/Edit/5
         public async Task<IActionResult> Edit(int? id)
@@ -198,7 +237,7 @@ namespace _2025_2C_ReservaEspectaculoORT.Controllers
         [HttpPost]
         public async Task<IActionResult> SeleccionarButacas(int cantButacas, int id)
         {
-            return RedirectToAction("ListarFunciones", "Funciones", new { idPelicula = id });
+            return RedirectToAction("ListarFunciones", "Funciones", new { idPelicula = id, CantButacas = cantButacas });
         }
     }
 }

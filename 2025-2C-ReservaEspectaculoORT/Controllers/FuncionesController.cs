@@ -191,12 +191,11 @@ namespace _2025_2C_ReservaEspectaculoORT.Controllers
         [HttpPost]
         public async Task<IActionResult> Reservar(int id, int cantButacas)
         {
-            TempData["cantButacas"] = cantButacas;
 
-            return RedirectToAction("ListarFunciones", new { idPelicula = id });
+            return RedirectToAction("ListarFunciones", new { idPelicula = id, CantButacas = cantButacas });
         }
 
-        public async Task<IActionResult> ListarFunciones(int idPelicula)
+        public async Task<IActionResult> ListarFunciones(int idPelicula, int CantButacas)
         {
             var pelicula = await _context.Pelicula.Include(p => p.Funciones).ThenInclude(f => f.Sala).ThenInclude(s => s.TipoSala).FirstOrDefaultAsync(p => p.Id == idPelicula);
 
@@ -204,7 +203,7 @@ namespace _2025_2C_ReservaEspectaculoORT.Controllers
                 return NotFound();
 
             ViewBag.Pelicula = pelicula;
-            ViewBag.CantButacas = TempData["cantButacas"];
+            ViewBag.CantButacas = CantButacas;
 
             return View(pelicula);
         }
