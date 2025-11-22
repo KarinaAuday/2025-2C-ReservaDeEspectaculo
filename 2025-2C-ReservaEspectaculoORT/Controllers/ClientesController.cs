@@ -153,7 +153,22 @@ namespace _2025_2C_ReservaEspectaculoORT.Controllers
         {
             return _context.Cliente.Any(e => e.id == id);
         }
-
+        public ActionResult Buscar(string? nombre)
+        {
+            if (!String.IsNullOrEmpty(nombre))
+            {
+                var clientes = _context.Cliente.Where(p => p.Nombre.ToUpper().Contains(nombre.ToUpper())||p.Apellido.ToUpper().Contains(nombre.ToUpper())).ToList();
+                if (clientes.Count == 0)
+                {
+                    ViewBag.Mensaje = "No se encontraron resultados";
+                }
+                return View("Buscador", clientes);
+            }
+            else
+            {
+                return View("Buscador");
+            }
+        }
         // GET: muestra el formulario
         //[HttpGet]
         //public async Task<IActionResult> Reserva(int idCliente)
@@ -177,7 +192,7 @@ namespace _2025_2C_ReservaEspectaculoORT.Controllers
 
         //    if (pelicula == null)
         //        return NotFound();
-            
+
 
         //    ViewBag.Pelicula = pelicula;
         //    ViewBag.ListaFunciones = new List<Funcion>(pelicula.Funciones); 

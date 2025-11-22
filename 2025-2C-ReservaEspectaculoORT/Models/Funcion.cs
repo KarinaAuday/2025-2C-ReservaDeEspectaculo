@@ -36,7 +36,7 @@ namespace _2025_2C_ReservaEspectaculoORT.Models
         {
             this.ButacasDisponibles = butacasDisponibles;
             this.Confirmada = confirmada;
-            this.Descripcion = desc;
+            this.Descripcion = peli.Titulo+" - "+ sala.TipoSala.Nombre;
             this.Fecha = fecha;
             this.Sala = sala;
             this.Pelicula = peli;
