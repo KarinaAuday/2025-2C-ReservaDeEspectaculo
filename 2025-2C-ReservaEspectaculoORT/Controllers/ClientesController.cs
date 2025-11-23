@@ -33,7 +33,7 @@ namespace _2025_2C_ReservaEspectaculoORT.Controllers
                 return NotFound();
             }
 
-            var cliente = await _context.Cliente
+            var cliente = await _context.Cliente.Include(c=>c.Reservas).ThenInclude(r=>r.Funcion)
                 .FirstOrDefaultAsync(m => m.id == id);
             if (cliente == null)
             {
@@ -157,7 +157,7 @@ namespace _2025_2C_ReservaEspectaculoORT.Controllers
         {
             if (!String.IsNullOrEmpty(nombre))
             {
-                var clientes = _context.Cliente.Where(p => p.Nombre.ToUpper().Contains(nombre.ToUpper())||p.Apellido.ToUpper().Contains(nombre.ToUpper())).ToList();
+                var clientes = _context.Cliente.Include(p=>p.Reservas).ThenInclude(r=>r.Funcion).Where(p => p.Nombre.ToUpper().Contains(nombre.ToUpper())||p.Apellido.ToUpper().Contains(nombre.ToUpper())).ToList();
                 if (clientes.Count == 0)
                 {
                     ViewBag.Mensaje = "No se encontraron resultados";

@@ -74,6 +74,15 @@ namespace _2025_2C_ReservaEspectaculoORT.Controllers
             if (ModelState.IsValid)
             {
                 reserva.FechaAlta = DateTime.Now;
+
+                var cliente = _context.Cliente.Include(f => f.Reservas).FirstOrDefault(f => f.id == reserva.ClienteId);
+                reserva.Cliente = cliente;
+                cliente.Reservas.Add(reserva);
+
+                var funcion = _context.Funcion.Include(f => f.Pelicula).FirstOrDefault(f => f.Id == reserva.FuncionId);
+                funcion.ButacasDisponibles -= reserva.CantidadButacas;
+                reserva.Funcion = funcion;
+
                 _context.Add(reserva);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

@@ -34,7 +34,7 @@ namespace _2025_2C_ReservaEspectaculoORT.Models
 
         public Funcion(int butacasDisponibles, bool confirmada, string desc, DateTime fecha, Sala sala, Pelicula peli, int peliId, int salaId)
         {
-            this.ButacasDisponibles = butacasDisponibles;
+            this.ButacasDisponibles = sala.CapacidadButacas;
             this.Confirmada = confirmada;
             this.Descripcion = peli.Titulo+" - "+ sala.TipoSala.Nombre;
             this.Fecha = fecha;
