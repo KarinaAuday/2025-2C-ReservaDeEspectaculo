@@ -176,5 +176,18 @@ namespace _2025_2C_ReservaEspectaculoORT.Controllers
         {
             return _context.Pelicula.Any(e => e.Id == id);
         }
+        
+        public IActionResult CarteleraPorGenero(Genero genero)
+        {
+            ViewBag.Genero = genero;
+            var peliculas = _context.Pelicula.Where(p => p.Genero == genero).ToList();
+            if (peliculas.Count == 0)
+            {
+                ViewBag.Mensaje = "No se encontraron resultados";
+            }
+
+            return View("CarteleraPorGenero", peliculas);
+        }
     }
+
 }

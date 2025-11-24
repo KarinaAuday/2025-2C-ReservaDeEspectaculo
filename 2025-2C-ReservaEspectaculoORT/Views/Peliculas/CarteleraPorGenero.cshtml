@@ -1,12 +1,11 @@
-﻿@model IEnumerable<_2025_2C_ReservaEspectaculoORT.Models.Pelicula>
+﻿@model List<_2025_2C_ReservaEspectaculoORT.Models.Pelicula>
 
-<head><title>Cartelera</title></head>
 
 <div class="dropdown">
+    <a class="btn btn-light me-2" asp-area="" asp-controller="Peliculas" asp-action="Cartelera">Volver a la Cartelera</a>
     <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
         Genero
     </a>
-
     <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
         <li><a class="dropdown-item" asp-area="" asp-controller="Peliculas" asp-action="CarteleraPorGenero" asp-route-genero="@Genero.Accion">Accion</a></li>
         <li><a class="dropdown-item" asp-area="" asp-controller="Peliculas" asp-action="CarteleraPorGenero" asp-route-genero="@Genero.Comedia">Comedia</a></li>
@@ -22,7 +21,18 @@
         <li><a class="dropdown-item" asp-area="" asp-controller="Peliculas" asp-action="CarteleraPorGenero" asp-route-genero="@Genero.Musical">Musical</a></li>
     </ul>
 </div>
-<div class="card-group">
+
+<br>
+<h1>Peliculas por genero: @ViewBag.Genero</h1
+<br>
+
+@if (!String.IsNullOrEmpty(ViewBag.Mensaje))
+{
+    <p>@ViewBag.Mensaje</p>
+}
+@if (Model != null && Model.Count > 0)
+{
+    <div class="card-group">
     @foreach(var item in Model)
     {
         <div class="col-md-3 mb-4">
@@ -41,3 +51,4 @@
         </div>
     }
 </div>
+}
