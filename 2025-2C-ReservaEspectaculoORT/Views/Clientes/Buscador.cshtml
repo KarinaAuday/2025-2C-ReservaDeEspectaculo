@@ -16,7 +16,7 @@
                 <div class="ms-2 me-auto">
                     <p style="font-size: 20px;">@cliente.Nombre @cliente.Apellido</p>
 
-                    @if (cliente.Reservas?.LastOrDefault()?.Funcion.Fecha < DateTime.Now)
+                    @if (cliente.Reservas?.LastOrDefault()?.Funcion.Fecha > DateTime.Now)
                     {
                         cliente.Reservas.LastOrDefault().Activa = false;
                     }
@@ -30,7 +30,6 @@
                         <a class="btn btn-primary" asp-area="" asp-controller="Reservas" asp-action="SeleccionarPelicula">Reservar</a>
                     }
                 </div> 
-               @*@ <a class="btn btn-primary" asp-area="" asp-controller="Reservas" asp-action="SeleccionarPelicula" >Reservar</a>*@
                 <a class="btn btn-light" asp-area="" asp-controller="Clientes" asp-action="Details" asp-route-id="@cliente.id">Mas informacion</a>
             </li>
         }
