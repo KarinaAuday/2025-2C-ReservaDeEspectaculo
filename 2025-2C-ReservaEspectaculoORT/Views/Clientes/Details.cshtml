@@ -59,15 +59,30 @@
             @Html.DisplayFor(model => model.UserName)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Reservas)
-         </dt>
-        @foreach (var reserva in Model.Reservas)
-        {
+            @Html.DisplayNameFor(model => model.Reservas):
+         </dt> 
+
+         <dl>
+
             <dd class="col-sm-10">
+        @foreach (var reserva in Model.Reservas)
+        {       
+                <div class="d-flex align-items-center justify-content-between mb-2">
                 @reserva.Funcion.Descripcion
-            </dd>
+                @if (reserva.Activa && DateTime.Now.AddHours(24) <= reserva.Funcion.Fecha)
+                {
+                    <form asp-controller="Reservas" asp-action="Cancelar" method="post" class="m-0">
+                        <input type="hidden" name="id" value="@reserva.Id" />
+                        <input type="hidden" name="idCliente" value="@Model.id" />
+                            <button type="submit" class="btn btn-primary">
+                                Cancelar
+                                </button>
+                    </form>
+                }
+                </div>
         }
-    </dl> 
+            </dd>
+    
 </div>
 <div>
     <a asp-action="Edit" asp-route-id="@Model?.id">Edit</a> |

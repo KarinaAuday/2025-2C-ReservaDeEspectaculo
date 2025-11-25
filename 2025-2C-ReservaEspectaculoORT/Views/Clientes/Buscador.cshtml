@@ -16,7 +16,7 @@
                 <div class="ms-2 me-auto">
                     <p style="font-size: 20px;">@cliente.Nombre @cliente.Apellido</p>
 
-                    @if (cliente.Reservas?.LastOrDefault()?.Funcion.Fecha > DateTime.Now)
+                    @if (cliente.Reservas?.LastOrDefault()?.Funcion.Fecha < DateTime.Now)
                     {
                         cliente.Reservas.LastOrDefault().Activa = false;
                     }

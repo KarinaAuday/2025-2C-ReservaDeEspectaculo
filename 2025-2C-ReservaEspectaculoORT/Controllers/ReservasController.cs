@@ -212,6 +212,21 @@ namespace _2025_2C_ReservaEspectaculoORT.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Cancelar(int id, int idCliente)
+        {
+            var reserva = await _context.Reserva.Include(r => r.Funcion).FirstOrDefaultAsync(r => r.Id == id);
+            if (reserva != null)
+            {
+                reserva.Funcion.ButacasDisponibles += reserva.CantidadButacas;
+                _context.Reserva.Remove(reserva);
+            }
+
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Index", "Clientes"); //cambiar el redirect cuando tengamos IDENTITY
+        }
+
         private bool ReservaExists(int id)
         {
             return _context.Reserva.Any(e => e.Id == id);
