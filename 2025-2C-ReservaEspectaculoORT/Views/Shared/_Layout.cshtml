@@ -41,6 +41,12 @@
                         <li class="nav-item">
                             <a class="nav-link" asp-area="" asp-controller="Clientes" asp-action="Index">Editar datos cliente</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Reservas" asp-action="ListarReservasFuturo">Lista reservas futuro</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Reservas" asp-action="ListarReservasPasado">Lista reservas pasadas</a>
+                        </li>
                     </ul>
                     <form class="d-flex" asp-area="" asp-controller="Peliculas" asp-action="Buscar">
                         <input class="form-control me-2" type="search" name="titulo" placeholder="Buscar pelicula" aria-label="Buscar">

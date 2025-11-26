@@ -248,5 +248,26 @@ namespace _2025_2C_ReservaEspectaculoORT.Controllers
         {
             return RedirectToAction("ListarFunciones", "Funciones", new { idPelicula = id, CantButacas = cantButacas });
         }
+        public IActionResult ListarReservasFuturo()
+        {
+            var reservasf =  _context.Reserva.Include(r => r.Cliente).Include(r => r.Funcion).Include(r=>r.Funcion.Pelicula).Where(r => r.Funcion.Fecha >= DateTime.Now).ToList();
+           
+            if (reservasf.Count == 0)
+            {
+                ViewBag.Mensaje = "No se encontraron resultados";
+            }
+            return View("ListarReservasFuturo",reservasf);
+        }
+        public IActionResult ListarReservasPasado()
+        {
+            var reservasp = _context.Reserva.Include(r => r.Cliente).Include(r => r.Funcion).Include(r => r.Funcion.Pelicula).Where(r => r.Funcion.Fecha < DateTime.Now).ToList();
+
+            if (reservasp.Count == 0)
+            {
+                ViewBag.Mensaje = "No se encontraron resultados";
+            }
+            return View("ListarReservasPasado", reservasp);
+
+        }
     }
 }
