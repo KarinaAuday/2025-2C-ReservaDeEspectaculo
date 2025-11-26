@@ -51,8 +51,8 @@ namespace _2025_2C_ReservaEspectaculoORT.Controllers
         // GET: Funciones/Create
         public IActionResult Create()
         {
-            ViewData["PeliculaId"] = new SelectList(_context.Pelicula, "Id", "Id");
-            ViewData["SalaId"] = new SelectList(_context.Sala, "Id", "Id");
+            ViewData["PeliculaId"] = new SelectList(_context.Pelicula, "Id", "Titulo");
+            ViewData["SalaId"] = new SelectList(_context.Sala, "Id", "Numero");
             return View();
         }
 
@@ -65,7 +65,8 @@ namespace _2025_2C_ReservaEspectaculoORT.Controllers
         {
             if (ModelState.IsValid)
             {
-                var funcionEncontrada = await _context.Funcion.AnyAsync(f => f.Sala.Numero == funcion.Sala.Numero && f.Pelicula.Titulo == funcion.Pelicula.Titulo);
+                
+                var funcionEncontrada = await _context.Funcion.AnyAsync(f => f.Sala.Id == funcion.SalaId && f.Pelicula.Id == funcion.PeliculaId);
                 if (!funcionEncontrada)
                 {
                     _context.Add(funcion);
@@ -77,8 +78,8 @@ namespace _2025_2C_ReservaEspectaculoORT.Controllers
                     ModelState.AddModelError("", "Ya existe una funcion con el mismo numeor de sala y/o titulo.");
                 }
             }
-            ViewData["PeliculaId"] = new SelectList(_context.Set<Pelicula>(), "Id", "Descripcion", funcion.PeliculaId);
-            ViewData["SalaId"] = new SelectList(_context.Sala, "Id", "Id", funcion.SalaId);
+            ViewData["PeliculaId"] = new SelectList(_context.Set<Pelicula>(), "Id", "Titulo", funcion.PeliculaId);
+            ViewData["SalaId"] = new SelectList(_context.Sala, "Id", "Numero", funcion.SalaId);
             return View(funcion);
         }
 
@@ -226,6 +227,19 @@ namespace _2025_2C_ReservaEspectaculoORT.Controllers
             var funcion = _context.Funcion.Include(f => f.Reservas).ThenInclude(r=>r.Cliente).FirstOrDefault(f => f.Id == id);
             return View("ListarReservasDeFuncion", funcion);
 
+        }
+
+        public IActionResult Confirmada(int id)
+        {
+            var funcion = _context.Funcion.FirstOrDefault(f => f.Id == id);
+
+            if (funcion == null)
+                return NotFound();
+
+            funcion.Confirmada = !funcion.Confirmada; // alterna el valor
+            _context.SaveChanges();
+
+            return RedirectToAction("Index"); // vuelve al listado
         }
     }
 }
