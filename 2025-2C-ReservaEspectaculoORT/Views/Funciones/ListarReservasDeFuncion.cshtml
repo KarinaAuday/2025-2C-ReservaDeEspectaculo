@@ -1,0 +1,25 @@
+﻿@model _2025_2C_ReservaEspectaculoORT.Models.Funcion
+@{
+    var reservas = Model.Reservas;
+}
+
+
+
+
+<h1>Reservas para funcion: @Model.Descripcion</h1>
+  
+    <ul class="list-group">
+  
+        @foreach (var item in reservas)
+        {
+            <li class="list-group-item d-flex justify-content-between align-items-start">
+                <div class="ms-2 me-auto">
+                    <p style="font-size: 20px;">@item.Cliente?.Nombre</p>
+                    <p style="font-size: 20px;">Cantidad de butacas @item.CantidadButacas<p />
+                </div>
+            </li>
+
+
+        }
+    </ul>
+
