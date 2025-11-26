@@ -65,8 +65,7 @@ namespace _2025_2C_ReservaEspectaculoORT.Controllers
         {
             if (ModelState.IsValid)
             {
-                
-                var funcionEncontrada = await _context.Funcion.AnyAsync(f => f.Sala.Id == funcion.SalaId && f.Pelicula.Id == funcion.PeliculaId);
+                var funcionEncontrada = await _context.Funcion.AnyAsync(f => f.Sala.Id == funcion.SalaId && f.Fecha.AddHours(2) > funcion.Fecha && f.Fecha < funcion.Fecha.AddHours(2));
                 if (!funcionEncontrada)
                 {
                     _context.Add(funcion);
@@ -75,7 +74,7 @@ namespace _2025_2C_ReservaEspectaculoORT.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Ya existe una funcion con el mismo numeor de sala y/o titulo.");
+                    ModelState.AddModelError("", "Ya existe una funcion con la misma sala en la fecha y horario ingresado");
                 }
             }
             ViewData["PeliculaId"] = new SelectList(_context.Set<Pelicula>(), "Id", "Titulo", funcion.PeliculaId);
@@ -145,7 +144,7 @@ namespace _2025_2C_ReservaEspectaculoORT.Controllers
             {
                 return NotFound();
             }
-
+            
             var funcion = await _context.Funcion
                 .Include(f => f.Pelicula)
                 .Include(f => f.Sala)
@@ -156,6 +155,18 @@ namespace _2025_2C_ReservaEspectaculoORT.Controllers
             }
 
             return View(funcion);
+        }
+
+        public async Task<IActionResult> Cancelar(int id)
+        {
+            var funcion = await _context.Funcion.Include(f => f.Reservas).FirstOrDefaultAsync(f => f.Id == id);
+            
+            if (funcion != null && funcion.Fecha > DateTime.Now && funcion.Reservas.Count == 0)
+            {
+                _context.Funcion.Remove(funcion);
+            }
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Index");
         }
 
         // POST: Funciones/Delete/5

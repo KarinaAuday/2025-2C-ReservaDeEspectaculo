@@ -13,21 +13,34 @@
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="CapacidadButacas" class="control-label"></label>
-                <input asp-for="CapacidadButacas" class="form-control" />
+                <label asp-for="CapacidadButacas" class="control-label" ></label>
+                <input asp-for="CapacidadButacas" class="form-control" readonly />
                 <span asp-validation-for="CapacidadButacas" class="text-danger"></span>
             </div>
             <input type="hidden" asp-for="Id" />
             <div class="form-group">
                 <label asp-for="Numero" class="control-label"></label>
-                <input asp-for="Numero" class="form-control" />
+                <input asp-for="Numero" class="form-control" readonly />
                 <span asp-validation-for="Numero" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="TipoSalaId" class="control-label"></label>
-                <select asp-for="TipoSalaId" class="form-control" asp-items="ViewBag.TipoSalaId"></select>
-                <span asp-validation-for="TipoSalaId" class="text-danger"></span>
+                <label asp-for="TipoSalaId" class="control-label">Sala</label>
+
+                @if (ViewBag.puedeEditar)
+                {
+                    <select asp-for="TipoSalaId" asp-items="ViewBag.TipoSalaId" class="form-control" disabled></select>
+                    <small class="text-danger">No puede cambiar el tipo porque esta sala tiene reservas activas.</small>
+
+                    <input type="hidden" asp-for="TipoSalaId" />
+                }
+                else
+                {
+                    <select asp-for="TipoSalaId" asp-items="ViewBag.TipoSalaId" class="form-control"></select>
+                }
             </div>
+
+            
+            
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>

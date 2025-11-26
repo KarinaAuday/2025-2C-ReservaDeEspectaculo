@@ -76,11 +76,13 @@ namespace _2025_2C_ReservaEspectaculoORT.Controllers
                 return NotFound();
             }
 
-            var sala = await _context.Sala.FindAsync(id);
+            var sala = await _context.Sala.Include(s => s.Funciones).ThenInclude(f=> f.Reservas).FirstOrDefaultAsync(s => s.Id == id);
+            
             if (sala == null)
             {
                 return NotFound();
             }
+            ViewBag.puedeEditar = sala.Funciones.SelectMany(f => f.Reservas).Any(r => r.Activa);  
             ViewData["TipoSalaId"] = new SelectList(_context.Set<TipoSala>(), "Id", "Nombre", sala.TipoSalaId);
             return View(sala);
         }
@@ -159,5 +161,8 @@ namespace _2025_2C_ReservaEspectaculoORT.Controllers
         {
             return _context.Sala.Any(e => e.Id == id);
         }
+
+
+
     }
 }
