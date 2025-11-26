@@ -65,9 +65,17 @@ namespace _2025_2C_ReservaEspectaculoORT.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(funcion);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                var funcionEncontrada = await _context.Funcion.AnyAsync(f => f.Sala.Numero == funcion.Sala.Numero && f.Pelicula.Titulo == funcion.Pelicula.Titulo);
+                if (!funcionEncontrada)
+                {
+                    _context.Add(funcion);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Ya existe una funcion con el mismo numeor de sala y/o titulo.");
+                }
             }
             ViewData["PeliculaId"] = new SelectList(_context.Set<Pelicula>(), "Id", "Descripcion", funcion.PeliculaId);
             ViewData["SalaId"] = new SelectList(_context.Sala, "Id", "Id", funcion.SalaId);

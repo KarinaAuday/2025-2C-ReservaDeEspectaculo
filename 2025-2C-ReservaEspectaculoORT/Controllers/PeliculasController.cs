@@ -63,9 +63,16 @@ namespace _2025_2C_ReservaEspectaculoORT.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(pelicula);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                var peliculaEncontrada = await _context.Pelicula.AnyAsync(p => p.Titulo == pelicula.Titulo && p.Genero == pelicula.Genero);
+                if (!peliculaEncontrada)
+                {
+                    _context.Add(pelicula);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
+                else {
+                    ModelState.AddModelError("", "Ya existe una película con el mismo título y/o género.");
+                }
             }
             return View(pelicula);
         }

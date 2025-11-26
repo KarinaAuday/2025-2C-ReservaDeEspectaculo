@@ -13,15 +13,16 @@
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
+                <label class="form-check-label">
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" asp-for="Confirmada" role="switch" id="flexSwitchCheckDefault"> @Html.DisplayNameFor(model => model.Confirmada)
+                        <label class="form-check-label" for="flexSwitchCheckDefault"></label>
+                    </div>
+                </label>
             <div class="form-group">
                 <label asp-for="ButacasDisponibles" class="control-label"></label>
                 <input asp-for="ButacasDisponibles" class="form-control" />
                 <span asp-validation-for="ButacasDisponibles" class="text-danger"></span>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="Confirmada" /> @Html.DisplayNameFor(model => model.Confirmada)
-                </label>
             </div>
             <div class="form-group">
                 <label asp-for="Descripcion" class="control-label"></label>
