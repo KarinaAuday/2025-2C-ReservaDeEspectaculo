@@ -1,13 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using _2025_2C_ReservaEspectaculoORT.Data;
+using _2025_2C_ReservaEspectaculoORT.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using _2025_2C_ReservaEspectaculoORT.Data;
-using _2025_2C_ReservaEspectaculoORT.Models;
 using Microsoft.IdentityModel.Tokens;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace _2025_2C_ReservaEspectaculoORT.Controllers
 {
@@ -21,6 +22,7 @@ namespace _2025_2C_ReservaEspectaculoORT.Controllers
         }
 
         // GET: Peliculas
+        [Authorize(Roles = "Empleado, Admin")]
         public async Task<IActionResult> Index()
         {
             return View(await _context.Pelicula.ToListAsync());
@@ -49,6 +51,7 @@ namespace _2025_2C_ReservaEspectaculoORT.Controllers
         }
 
         // GET: Peliculas/Create
+        [Authorize(Roles = "Empleado, Admin")]
         public IActionResult Create()
         {
             return View();
@@ -57,6 +60,7 @@ namespace _2025_2C_ReservaEspectaculoORT.Controllers
         // POST: Peliculas/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "Empleado, Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Descripcion,Titulo,FechaLanzaiento,Id,Foto,Genero")] Pelicula pelicula)
@@ -78,6 +82,7 @@ namespace _2025_2C_ReservaEspectaculoORT.Controllers
         }
 
         // GET: Peliculas/Edit/5
+        [Authorize(Roles = "Empleado, Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -96,6 +101,7 @@ namespace _2025_2C_ReservaEspectaculoORT.Controllers
         // POST: Peliculas/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "Empleado, Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Descripcion,Titulo,FechaLanzaiento,Id,Foto,Genero")] Pelicula pelicula)

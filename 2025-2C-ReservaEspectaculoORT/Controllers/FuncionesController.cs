@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using _2025_2C_ReservaEspectaculoORT.Data;
+using _2025_2C_ReservaEspectaculoORT.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using _2025_2C_ReservaEspectaculoORT.Data;
-using _2025_2C_ReservaEspectaculoORT.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace _2025_2C_ReservaEspectaculoORT.Controllers
 {
@@ -49,6 +50,7 @@ namespace _2025_2C_ReservaEspectaculoORT.Controllers
         }
 
         // GET: Funciones/Create
+        [Authorize(Roles = "Empleado, Admin")]
         public IActionResult Create()
         {
             ViewData["PeliculaId"] = new SelectList(_context.Pelicula, "Id", "Titulo");
@@ -59,7 +61,9 @@ namespace _2025_2C_ReservaEspectaculoORT.Controllers
         // POST: Funciones/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "Empleado, Admin")]
         [HttpPost]
+
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,ButacasDisponibles,Confirmada,Descripcion,Fecha,PeliculaId,SalaId")] Funcion funcion)
         {

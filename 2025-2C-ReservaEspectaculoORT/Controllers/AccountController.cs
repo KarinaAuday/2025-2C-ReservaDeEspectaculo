@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages;
+using System.Threading.Tasks;
 
 namespace _2025_2C_ReservaEspectaculoORT.Controllers
 {
@@ -137,5 +138,40 @@ namespace _2025_2C_ReservaEspectaculoORT.Controllers
             await _signInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
         }
+
+
+        public async Task<IActionResult> IniciarSesionConPelicula(string returnUrl, int idPeli)
+        {
+            TempData["ReturnUrl"] = returnUrl;
+            var pelicula = await _context.Pelicula.FindAsync(idPeli);
+            ViewBag.idPelicula = pelicula?.Id;
+            return View();
+        }
+
+        [AllowAnonymous]
+        [HttpPost]
+        public async Task<IActionResult> IniciarSesionConPelicula(InicioSesion inicio, int idPelicula)
+        {
+
+            if (ModelState.IsValid)
+            {
+                string returnUrl = TempData["ReturnUrl"] as string;
+              
+                var resultado = await _signInManager.PasswordSignInAsync(inicio.Email, inicio.Password, inicio.Recordarme, false);
+
+                if (resultado.Succeeded)
+                {
+                    if (!string.IsNullOrEmpty(returnUrl))
+                    {
+                        return Redirect(returnUrl);
+                    }
+                    return RedirectToAction("SeleccionarButacas", "Reservas", new { idPelicula = idPelicula });
+                }
+
+                ModelState.AddModelError(String.Empty, "Inicio de Sesión inválida");
+            }
+            return View(inicio);
+        }
+     
     }
 }

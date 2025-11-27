@@ -1,5 +1,6 @@
 ﻿using _2025_2C_ReservaEspectaculoORT.Data;
 using _2025_2C_ReservaEspectaculoORT.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -11,16 +12,21 @@ using System.Threading.Tasks;
 
 namespace _2025_2C_ReservaEspectaculoORT.Controllers
 {
+
     public class ReservasController : Controller
     {
         private readonly ReservaEspectaculoContext _context;
         private readonly UserManager<Persona> _userManager;
+        private readonly RoleManager<Rol>_roleManager;
+        private readonly SignInManager<Persona> _signInManager;
 
-        public ReservasController(ReservaEspectaculoContext context, UserManager<Persona> userManager)
+
+        public ReservasController(ReservaEspectaculoContext context, UserManager<Persona> userManager, SignInManager<Persona> signInManager)
         {
             _context = context;
             _userManager = userManager;
-        }
+            _signInManager = signInManager;
+        }  
 
         // GET: Reservas
         public async Task<IActionResult> Index()
@@ -52,6 +58,7 @@ namespace _2025_2C_ReservaEspectaculoORT.Controllers
         }
 
         // GET: Reservas/Create
+    
         public IActionResult Create(int funcionId, int CantidadButacas)
         {
             ViewBag.ClienteId = int.Parse(_userManager.GetUserId(User));
@@ -70,6 +77,7 @@ namespace _2025_2C_ReservaEspectaculoORT.Controllers
         // POST: Reservas/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+   
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Activa,CantidadButacas,ClienteId,FuncionId")] Reserva reserva)
@@ -239,7 +247,9 @@ namespace _2025_2C_ReservaEspectaculoORT.Controllers
         // GET: Reservas
         public async Task<IActionResult> SeleccionarPelicula()
         {
-            int idCliente = int.Parse(_userManager.GetUserId(User));
+
+
+                int idCliente = int.Parse(_userManager.GetUserId(User));
             var cliente = await _context.Cliente.FindAsync(idCliente);
             if (tieneReservaActiva(cliente))
             {
@@ -268,7 +278,12 @@ namespace _2025_2C_ReservaEspectaculoORT.Controllers
         [HttpGet]
         public async Task<IActionResult> SeleccionarButacas(int idPelicula)
         {
-            int idCliente = int.Parse(_userManager.GetUserId(User));
+            if (!_signInManager.IsSignedIn(User))
+            { 
+            
+                return RedirectToAction("IniciarSesionConPelicula","Account", new { idPeli = idPelicula});
+            }
+                int idCliente = int.Parse(_userManager.GetUserId(User));
             var cliente = await _context.Cliente.FindAsync(idCliente);
             if (tieneReservaActiva(cliente))
             {
