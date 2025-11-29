@@ -30,7 +30,7 @@ namespace _2025_2C_ReservaEspectaculoORT.Data
             builder.Entity<IdentityRole<int>>().ToTable("Roles");
             builder.Entity<IdentityUserRole<int>>().ToTable("PersonasRoles");
 
-            builder.Entity<Persona>().HasIndex(s => s.Dni).IsUnique(); //Dni
+//            builder.Entity<Persona>().HasIndex(s => s.Dni).IsUnique(); //Dni
 //            builder.Entity<Sala>().HasIndex(s => s.Numero).IsUnique(); //Numero sala unica
 //            builder.Entity<Pelicula>().HasIndex(p => p.Titulo).IsUnique(); //Nombre pelicula
     

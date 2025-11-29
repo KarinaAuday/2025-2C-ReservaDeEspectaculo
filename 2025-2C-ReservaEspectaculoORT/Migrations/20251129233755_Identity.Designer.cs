@@ -12,7 +12,7 @@ using _2025_2C_ReservaEspectaculoORT.Data;
 namespace _2025_2C_ReservaEspectaculoORT.Migrations
 {
     [DbContext(typeof(ReservaEspectaculoContext))]
-    [Migration("20251129212600_Identity")]
+    [Migration("20251129233755_Identity")]
     partial class Identity
     {
         /// <inheritdoc />
