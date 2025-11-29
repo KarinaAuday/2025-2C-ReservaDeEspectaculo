@@ -34,7 +34,7 @@ namespace _2025_2C_ReservaEspectaculoORT.Controllers
             }
 
             var persona = await _context.Persona
-                .FirstOrDefaultAsync(m => m.id == id);
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (persona == null)
             {
                 return NotFound();
@@ -88,7 +88,7 @@ namespace _2025_2C_ReservaEspectaculoORT.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("id,Apellido,Direccion,Dni,Email,FechaAlta,Nombre,Telefono,UserName")] Persona persona)
         {
-            if (id != persona.id)
+            if (id != persona.Id)
             {
                 return NotFound();
             }
@@ -102,7 +102,7 @@ namespace _2025_2C_ReservaEspectaculoORT.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!PersonaExists(persona.id))
+                    if (!PersonaExists(persona.Id))
                     {
                         return NotFound();
                     }
@@ -125,7 +125,7 @@ namespace _2025_2C_ReservaEspectaculoORT.Controllers
             }
 
             var persona = await _context.Persona
-                .FirstOrDefaultAsync(m => m.id == id);
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (persona == null)
             {
                 return NotFound();
@@ -151,7 +151,7 @@ namespace _2025_2C_ReservaEspectaculoORT.Controllers
 
         private bool PersonaExists(int id)
         {
-            return _context.Persona.Any(e => e.id == id);
+            return _context.Persona.Any(e => e.Id == id);
         }
     }
 }

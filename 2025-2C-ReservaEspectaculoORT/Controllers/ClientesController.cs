@@ -34,7 +34,7 @@ namespace _2025_2C_ReservaEspectaculoORT.Controllers
             }
 
             var cliente = await _context.Cliente.Include(c=>c.Reservas).ThenInclude(r=>r.Funcion)
-                .FirstOrDefaultAsync(m => m.id == id);
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (cliente == null)
             {
                 return NotFound();
@@ -88,7 +88,7 @@ namespace _2025_2C_ReservaEspectaculoORT.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("id,Apellido,Direccion,Dni,Email,FechaAlta,Nombre,Telefono,UserName")] Cliente cliente)
         {
-            if (id != cliente.id)
+            if (id != cliente.Id)
             {
                 return NotFound();
             }
@@ -102,7 +102,7 @@ namespace _2025_2C_ReservaEspectaculoORT.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ClienteExists(cliente.id))
+                    if (!ClienteExists(cliente.Id))
                     {
                         return NotFound();
                     }
@@ -125,7 +125,7 @@ namespace _2025_2C_ReservaEspectaculoORT.Controllers
             }
 
             var cliente = await _context.Cliente
-                .FirstOrDefaultAsync(m => m.id == id);
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (cliente == null)
             {
                 return NotFound();
@@ -151,7 +151,7 @@ namespace _2025_2C_ReservaEspectaculoORT.Controllers
 
         private bool ClienteExists(int id)
         {
-            return _context.Cliente.Any(e => e.id == id);
+            return _context.Cliente.Any(e => e.Id == id);
         }
         public ActionResult Buscar(string? nombre)
         {

@@ -73,7 +73,7 @@
                 {
                     <form asp-controller="Reservas" asp-action="Cancelar" method="post" class="m-0">
                         <input type="hidden" name="id" value="@reserva.Id" />
-                        <input type="hidden" name="idCliente" value="@Model.id" />
+                        <input type="hidden" name="idCliente" value="@Model.Id" />
                             <button type="submit" class="btn btn-primary">
                                 Cancelar
                                 </button>
@@ -85,6 +85,6 @@
     
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.id">Edit</a> |
+    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
     <a asp-action="Index">Back to List</a>
 </div>

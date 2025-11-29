@@ -1,5 +1,7 @@
-using Microsoft.EntityFrameworkCore;
 using _2025_2C_ReservaEspectaculoORT.Data;
+using _2025_2C_ReservaEspectaculoORT.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,7 +16,7 @@ builder.Services.AddControllersWithViews();
 //Configuro SQL Server
 ////Agrego la base de datos SQL , y guardo el conection string en el appsetting.json
 builder.Services.AddDbContext<ReservaEspectaculoContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("ReservaEspectaculoDBCS")));
-
+builder.Services.AddIdentity<Persona, Rol>().AddEntityFrameworkStores<ReservaEspectaculoContext>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -28,7 +30,7 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseRouting();
 
-
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapStaticAssets();

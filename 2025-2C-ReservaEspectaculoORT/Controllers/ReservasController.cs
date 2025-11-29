@@ -75,7 +75,7 @@ namespace _2025_2C_ReservaEspectaculoORT.Controllers
             {
                 reserva.FechaAlta = DateTime.Now;
 
-                var cliente = _context.Cliente.Include(f => f.Reservas).FirstOrDefault(f => f.id == reserva.ClienteId);
+                var cliente = _context.Cliente.Include(f => f.Reservas).FirstOrDefault(f => f.Id == reserva.ClienteId);
                 reserva.Cliente = cliente;
                 cliente.Reservas.Add(reserva);
 

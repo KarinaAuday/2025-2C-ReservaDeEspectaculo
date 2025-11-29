@@ -32,7 +32,7 @@ namespace _2025_2C_ReservaEspectaculoORT.Migrations
                 name: "Persona",
                 columns: table => new
                 {
-                    id = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Apellido = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Direccion = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -47,7 +47,7 @@ namespace _2025_2C_ReservaEspectaculoORT.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Persona", x => x.id);
+                    table.PrimaryKey("PK_Persona", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(

@@ -34,7 +34,7 @@ namespace _2025_2C_ReservaEspectaculoORT.Controllers
             }
 
             var empleado = await _context.Empleado
-                .FirstOrDefaultAsync(m => m.id == id);
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (empleado == null)
             {
                 return NotFound();
@@ -88,7 +88,7 @@ namespace _2025_2C_ReservaEspectaculoORT.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("legajo,id,Apellido,Direccion,Dni,Email,FechaAlta,Nombre,Telefono,UserName")] Empleado empleado)
         {
-            if (id != empleado.id)
+            if (id != empleado.Id)
             {
                 return NotFound();
             }
@@ -102,7 +102,7 @@ namespace _2025_2C_ReservaEspectaculoORT.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!EmpleadoExists(empleado.id))
+                    if (!EmpleadoExists(empleado.Id))
                     {
                         return NotFound();
                     }
@@ -125,7 +125,7 @@ namespace _2025_2C_ReservaEspectaculoORT.Controllers
             }
 
             var empleado = await _context.Empleado
-                .FirstOrDefaultAsync(m => m.id == id);
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (empleado == null)
             {
                 return NotFound();
@@ -151,7 +151,7 @@ namespace _2025_2C_ReservaEspectaculoORT.Controllers
 
         private bool EmpleadoExists(int id)
         {
-            return _context.Empleado.Any(e => e.id == id);
+            return _context.Empleado.Any(e => e.Id == id);
         }
     }
 }

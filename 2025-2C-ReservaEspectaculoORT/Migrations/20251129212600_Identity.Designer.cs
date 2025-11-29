@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using _2025_2C_ReservaEspectaculoORT.Data;
 
@@ -11,9 +12,11 @@ using _2025_2C_ReservaEspectaculoORT.Data;
 namespace _2025_2C_ReservaEspectaculoORT.Migrations
 {
     [DbContext(typeof(ReservaEspectaculoContext))]
-    partial class ReservaEspectaculoContextModelSnapshot : ModelSnapshot
+    [Migration("20251129212600_Identity")]
+    partial class Identity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
