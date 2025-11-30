@@ -33,7 +33,7 @@ namespace _2025_2C_ReservaEspectaculoORT.Data
             builder.Entity<Persona>().HasIndex(s => s.Dni).IsUnique(); //Dni
 //            builder.Entity<Sala>().HasIndex(s => s.Numero).IsUnique(); //Numero sala unica
 //            builder.Entity<Pelicula>().HasIndex(p => p.Titulo).IsUnique(); //Nombre pelicula
-    
+// add
         }
     }
 }
