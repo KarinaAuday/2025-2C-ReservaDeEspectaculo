@@ -58,6 +58,7 @@ namespace _2025_2C_ReservaEspectaculoORT.Controllers
         {
             if (ModelState.IsValid)
             {
+                cliente.FechaAlta = DateTime.Now;
                 _context.Add(cliente);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -86,7 +87,7 @@ namespace _2025_2C_ReservaEspectaculoORT.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("id,Apellido,Direccion,Dni,Email,FechaAlta,Nombre,Telefono,UserName")] Cliente cliente)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Apellido,Direccion,Dni,Email,FechaAlta,Nombre,Telefono,UserName")] Cliente cliente)
         {
             if (id != cliente.Id)
             {
@@ -97,7 +98,19 @@ namespace _2025_2C_ReservaEspectaculoORT.Controllers
             {
                 try
                 {
-                    _context.Update(cliente);
+                    var cli = _context.Cliente.Find(cliente.Id);
+                    if (cli == null)
+                    {
+                        return NotFound();
+                    }
+                    cli.Nombre = cliente.Nombre;
+                    cli.Apellido = cliente.Apellido;
+                    cli.Direccion = cliente.Direccion;
+                    cli.FechaAlta = DateTime.Now;
+                    cli.Telefono = cliente.Telefono;
+                    cli.UserName = cliente.UserName;
+
+                    _context.Update(cli);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
@@ -113,8 +126,103 @@ namespace _2025_2C_ReservaEspectaculoORT.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            return View("Index", "Home");
+        }
+
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> Edit(int id, [Bind("id,Apellido,Direccion,Dni,Email,FechaAlta,Nombre,Telefono,UserName")] Cliente cliente)
+        //{
+        //    if (id != cliente.Id)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    if (ModelState.IsValid)
+        //    {
+        //        try
+        //        {
+        //            _context.Update(cliente);
+        //            await _context.SaveChangesAsync();
+        //        }
+        //        catch (DbUpdateConcurrencyException)
+        //        {
+        //            if (!ClienteExists(cliente.Id))
+        //            {
+        //                return NotFound();
+        //            }
+        //            else
+        //            {
+        //                throw;
+        //            }
+        //        }
+        //        return RedirectToAction(nameof(Index));
+        //    }
+        //    return View(cliente);
+        //} 
+
+
+        public async Task<IActionResult> CompletarDatos(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var cliente = await _context.Cliente.FindAsync(id);
+            if (cliente == null)
+            {
+                return NotFound();
+            }
             return View(cliente);
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CompletarDatos(int id, [Bind("Id,Apellido,Direccion,Dni,Email,FechaAlta,Nombre,Telefono,UserName")] Cliente cliente)
+        {
+            if (id != cliente.Id)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    var cli = _context.Cliente.Find(cliente.Id);
+                    if (cli == null)
+                    {
+                        return NotFound();
+                    }
+                    cli.Nombre = cliente.Nombre;
+                    cli.Apellido = cliente.Apellido;
+                    cli.Direccion = cliente.Direccion;
+                    cli.FechaAlta = DateTime.Now;
+                    cli.Telefono = cliente.Telefono;
+                    cli.UserName = cliente.UserName;
+                    cli.Dni = cliente.Dni;
+
+                    _context.Update(cli);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!ClienteExists(cliente.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction("Details", new { id = cliente.Id });
+            }
+            return RedirectToAction(nameof(Index));
+        }
+
+
 
         // GET: Clientes/Delete/5
         public async Task<IActionResult> Delete(int? id)
