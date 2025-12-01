@@ -9,5 +9,8 @@
         public const string SoloNumeros = "El campo {0} debe ser numerico";
         public const string SoloLetrasYNumeros = "El campo {0} debe tener letras o numeros";
         public const string TodoMenosEspaciosVacios = "El campo {0} no puede estar vacio";
+        public const string Email = "El formato del correo electrónico no es válido.";
+        public const string Password = "La clave y la confirmación de la clave no coinciden.";
+        public const string Invalido = "El campo {0} no es válido";
     }
 }
