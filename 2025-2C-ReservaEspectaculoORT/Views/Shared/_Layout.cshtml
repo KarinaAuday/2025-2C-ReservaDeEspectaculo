@@ -32,8 +32,7 @@
                         
                         @if (signInManager.IsSignedIn(User))
                         {
-                     
-                            @if (User.Identity.IsAuthenticated && User.IsInRole("Cliente"))
+                            @if (User.IsInRole("Cliente"))
                             {
                                 <li class="nav-item">
                                     <a class="nav-link" asp-area="" asp-controller="Peliculas" asp-action="Cartelera">Cartelera</a>
@@ -41,11 +40,11 @@
                                 <li class="nav-item">
                                     <a class="nav-link" asp-area="" asp-controller="Reservas" asp-action="SeleccionarPelicula">Reservar</a>
                                 </li>
-                                @* <li class="nav-item">
-                                    <a class="nav-link" asp-area="" asp-controller="Clientes" asp-action="Details" asp-route-id="@UserManager.GetUserId(User)">Editar datos cliente</a>
-                                </li> *@
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-area="" asp-controller="Clientes" asp-action="Perfil">Perfil</a>
+                                </li>
                                 
-                            } else if (User.Identity.IsAuthenticated && User.IsInRole("Empleado"))
+                            } else if (User.IsInRole("Empleado"))
                             {
                                 <div style="margin-left: 20px">
                                 <form class="d-flex" asp-area="" asp-controller="Clientes" asp-action="Buscar">
@@ -63,22 +62,24 @@
                                     <a class="nav-link" asp-area="" asp-controller="Reservas" asp-action="ListarReservasPasado">Lista reservas pasadas</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" asp-area="" asp-controller="Empleados" asp-action="Create">Crear empleado</a>
+                                    <a class="nav-link" asp-area="" asp-controller="Account" asp-action="RegistrarEmpleado">Crear empleado</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-area="" asp-controller="Account" asp-action="Registrar">Crear cliente</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" asp-area="" asp-controller="Funciones" asp-action="Create">Crear función</a>
                                 </li>
-
-                            } else if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                            } else if (User.IsInRole("Admin"))
                             {
                                 <li class="nav-item">
                                     <a class="nav-link" asp-area="" asp-controller="Peliculas" asp-action="Cartelera">Cartelera</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" asp-area="" asp-controller="Empleados" asp-action="Create">Crear empleado</a>
+                                    <a class="nav-link" asp-area="" asp-controller="Account" asp-action="RegistrarEmpleado">Crear empleado</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" asp-area="" asp-controller="Clientes" asp-action="Create">Crear usuario</a>
+                                    <a class="nav-link" asp-area="" asp-controller="Account" asp-action="Registrar">Crear cliente</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" asp-area="" asp-controller="Funciones" asp-action="Create">Crear función</a>

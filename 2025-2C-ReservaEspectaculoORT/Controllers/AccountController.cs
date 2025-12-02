@@ -42,7 +42,7 @@ namespace _2025_2C_ReservaEspectaculoORT.Controllers
 
                 if (resultadoCliente.Succeeded)
                 {
-                    var resultadoAddRole = await _userManager.AddToRoleAsync(c, "Cliente");
+                    var resultadoAddRole = await _userManager.AddToRoleAsync(c, "Cliente"); 
 
                     if (resultadoAddRole.Succeeded)
                     {
@@ -62,6 +62,45 @@ namespace _2025_2C_ReservaEspectaculoORT.Controllers
             return View(u);
         }
 
+        [Authorize(Roles = "Empleado, Admin")]
+        public IActionResult RegistrarEmpleado()
+        {
+            return View();
+        }
+
+        [Authorize(Roles = "Empleado, Admin")]
+        [HttpPost]
+        public async Task<IActionResult> RegistrarEmpleado([Bind("Email", "Password", "ConfirmPassword")] RegistroUsuario u)
+        {
+            if (ModelState.IsValid)
+            {
+                Empleado e = new Empleado();
+                e.Email = u.Email;
+                e.UserName = u.Email;
+                var resultadoCliente = await _userManager.CreateAsync(e, u.Password);
+
+                if (resultadoCliente.Succeeded)
+                {
+                    var resultadoAddRole = await _userManager.AddToRoleAsync(e, "Empleado");
+
+                    if (resultadoAddRole.Succeeded)
+                    {
+                        await _signInManager.SignInAsync(e, isPersistent: false);
+
+                        return RedirectToAction("CompletarDatos", "Empleados", new { id = e.Id });
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("", "No se pudo asignar el rol al empleado.");
+                    }
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Home", new { mensajeError = "Empleado duplicado o error al crear el usuairo" });
+                }
+            }
+            return View(u);
+        }
 
         public IActionResult IniciarSesion(string returnUrl)
         {

@@ -1,22 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using _2025_2C_ReservaEspectaculoORT.Data;
+using _2025_2C_ReservaEspectaculoORT.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using _2025_2C_ReservaEspectaculoORT.Data;
-using _2025_2C_ReservaEspectaculoORT.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace _2025_2C_ReservaEspectaculoORT.Controllers
 {
     public class ClientesController : Controller
     {
         private readonly ReservaEspectaculoContext _context;
-
-        public ClientesController(ReservaEspectaculoContext context)
+        private readonly UserManager<Persona> _userManager;
+        public ClientesController(ReservaEspectaculoContext context, UserManager<Persona> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         // GET: Clientes
@@ -41,6 +43,20 @@ namespace _2025_2C_ReservaEspectaculoORT.Controllers
             }
 
             return View(cliente);
+        }
+
+        public async Task<IActionResult> Perfil()
+        {
+            int id = int.Parse(_userManager.GetUserId(User));
+
+            var cliente = await _context.Cliente.Include(c => c.Reservas).ThenInclude(r => r.Funcion)
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (cliente == null)
+            {
+                return NotFound();
+            }
+
+            return View("Details", cliente);
         }
 
         // GET: Clientes/Create

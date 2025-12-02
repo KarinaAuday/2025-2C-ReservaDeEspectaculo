@@ -115,6 +115,66 @@ namespace _2025_2C_ReservaEspectaculoORT.Controllers
             }
             return View(empleado);
         }
+        public async Task<IActionResult> CompletarDatos(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var empleado = await _context.Empleado.FindAsync(id);
+            if (empleado == null)
+            {
+                return NotFound();
+            }
+            return View(empleado);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CompletarDatos(int id, [Bind("legajo,Id,Apellido,Direccion,Dni,Email,FechaAlta,Nombre,Telefono,UserName")] Empleado empleado)
+        {
+            if (id != empleado.Id)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    var emp = _context.Empleado.Find(empleado.Id);
+                    if (emp == null)
+                    {
+                        return NotFound();
+                    }
+                    emp.Nombre = empleado.Nombre;
+                    emp.Apellido = empleado.Apellido;
+                    emp.Direccion = empleado.Direccion;
+                    emp.FechaAlta = DateTime.Now;
+                    emp.Telefono = empleado.Telefono;
+                    emp.UserName = empleado.UserName;
+                    emp.Dni = empleado.Dni;
+
+                    _context.Update(emp);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!EmpleadoExists(empleado.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                RedirectToAction("Details", new { id = empleado.Id });
+                
+            }
+            return RedirectToAction(nameof(Index));
+        }
 
         // GET: Empleados/Delete/5
         public async Task<IActionResult> Delete(int? id)
