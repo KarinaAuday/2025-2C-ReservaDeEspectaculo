@@ -1,22 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using _2025_2C_ReservaEspectaculoORT.Data;
+using _2025_2C_ReservaEspectaculoORT.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using _2025_2C_ReservaEspectaculoORT.Data;
-using _2025_2C_ReservaEspectaculoORT.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace _2025_2C_ReservaEspectaculoORT.Controllers
 {
     public class ReservasController : Controller
     {
         private readonly ReservaEspectaculoContext _context;
+        private readonly UserManager<Persona> _userManager;
 
-        public ReservasController(ReservaEspectaculoContext context)
+        public ReservasController(ReservaEspectaculoContext context, UserManager<Persona> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         // GET: Reservas
@@ -51,7 +54,7 @@ namespace _2025_2C_ReservaEspectaculoORT.Controllers
         // GET: Reservas/Create
         public IActionResult Create(int funcionId, int CantidadButacas)
         {
-            ViewBag.ClienteId = 1;
+            ViewBag.ClienteId = int.Parse(_userManager.GetUserId(User));
             ViewBag.FuncionId = funcionId;
             ViewBag.CantButacas = CantidadButacas;
 
@@ -85,7 +88,7 @@ namespace _2025_2C_ReservaEspectaculoORT.Controllers
 
                 _context.Add(reserva);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Perfil", "Clientes");
             }
             //ViewData["ClienteId"] = new SelectList(_context.Set<Cliente>(), "id", "Apellido", reserva.ClienteId);
             //ViewData["FuncionId"] = new SelectList(_context.Funcion, "Id", "Descripcion", reserva.FuncionId);
@@ -135,7 +138,7 @@ namespace _2025_2C_ReservaEspectaculoORT.Controllers
             {
                 return NotFound();
             }
-            ViewData["ClienteId"] = new SelectList(_context.Set<Cliente>(), "id", "Apellido", reserva.ClienteId);
+            ViewData["ClienteId"] = new SelectList(_context.Set<Cliente>(), "Id", "Apellido", reserva.ClienteId);
             ViewData["FuncionId"] = new SelectList(_context.Funcion, "Id", "Descripcion", reserva.FuncionId);
             return View(reserva);
         }
@@ -220,11 +223,11 @@ namespace _2025_2C_ReservaEspectaculoORT.Controllers
             if (reserva != null)
             {
                 reserva.Funcion.ButacasDisponibles += reserva.CantidadButacas;
-                _context.Reserva.Remove(reserva);
+                reserva.Activa = false;
             }
 
             await _context.SaveChangesAsync();
-            return RedirectToAction("Index", "Clientes"); //cambiar el redirect cuando tengamos IDENTITY
+            return RedirectToAction("Perfil", "Clientes");
         }
 
         private bool ReservaExists(int id)
@@ -236,10 +239,24 @@ namespace _2025_2C_ReservaEspectaculoORT.Controllers
         // GET: Reservas
         public async Task<IActionResult> SeleccionarPelicula()
         {
+            int idCliente = int.Parse(_userManager.GetUserId(User));
+            var cliente = await _context.Cliente.FindAsync(idCliente);
+            if (tieneReservaActiva(cliente))
+            {
+                ViewBag.Mensaje = "No puede realizar una nueva reserva porque ya tiene una reserva activa.";
+            }
             ViewBag.Titulo = new SelectList(_context.Pelicula, "Id", "Titulo");
             return View();
         }
 
+        private bool tieneReservaActiva(Cliente cliente)
+        {
+            var reservasActivas = _context.Reserva
+                .Include(r => r.Funcion)
+                .Where(r => r.ClienteId == cliente.Id && r.Activa && r.Funcion.Fecha >= DateTime.Now)
+                .ToList();
+            return reservasActivas.Count > 0;
+        }
 
         //POST
         [HttpPost]
@@ -251,8 +268,13 @@ namespace _2025_2C_ReservaEspectaculoORT.Controllers
         [HttpGet]
         public async Task<IActionResult> SeleccionarButacas(int idPelicula)
         {
+            int idCliente = int.Parse(_userManager.GetUserId(User));
+            var cliente = await _context.Cliente.FindAsync(idCliente);
+            if (tieneReservaActiva(cliente))
+            {
+                ViewBag.Mensaje = "No puede realizar una nueva reserva porque ya tiene una reserva activa.";
+            }
             var pelicula = await _context.Pelicula.FindAsync(idPelicula);
-
             ViewBag.PeliculaId = pelicula.Id;
             return View();
         }

@@ -4,20 +4,29 @@
     ViewData["Title"] = "Reservar";
 }
 
-@* arreglar front *@
 <h1>Seleccionar Butacas</h1>
 <br>
-<div>
-    <form asp-action="SeleccionarButacas" method="post">
-        <input type="hidden" name="id" value="@ViewBag.PeliculaId" />
-        <div class="form-group">
-            <label name="cantButacas" class="control-label">Cantidad de butacas:</label>
-            <input type="number" name="cantButacas" class="form-control" min="1" required/> 
-            <span class="text-danger"></span>
-        </div>
-        <br>
-        <button type="submit" class="btn nav-item" style="background-color: #010120; border-color: #010120; color: white;">Siguiente</button>
-    </form>
-</div>
+
+@if (!String.IsNullOrEmpty(ViewBag.Mensaje))
+{
+    <p>@ViewBag.Mensaje</p>
+    <a class="btn btn-primary" asp-area="" asp-controller="Clientes" asp-action="Perfil">Mi perfil</a>
+} 
+else
+{
+    <div>
+        <form asp-action="SeleccionarButacas" method="post">
+            <input type="hidden" name="id" value="@ViewBag.PeliculaId" />
+            <div class="form-group">
+                <label name="cantButacas" class="control-label">Cantidad de butacas:</label>
+                <input type="number" name="cantButacas" class="form-control" min="1" required />
+                <span class="text-danger"></span>
+            </div>
+            <br>
+            <button type="submit" class="btn nav-item" style="background-color: #010120; border-color: #010120; color: white;">Siguiente</button>
+        </form>
+    </div>
+}
+
 
 

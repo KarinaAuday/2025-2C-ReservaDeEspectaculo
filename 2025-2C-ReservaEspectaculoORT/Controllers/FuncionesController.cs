@@ -65,6 +65,12 @@ namespace _2025_2C_ReservaEspectaculoORT.Controllers
         {
             if (ModelState.IsValid)
             {
+                var pelicula = await _context.Pelicula.FindAsync(funcion.PeliculaId);
+                var sala = await _context.Sala.Include(s => s.TipoSala).FirstOrDefaultAsync(s => s.Id == funcion.SalaId);
+                funcion.Pelicula = pelicula;
+                funcion.Sala = sala;    
+                funcion.Descripcion = funcion.Pelicula?.Titulo + " - " + funcion.Sala?.TipoSala?.Nombre;
+
                 var funcionEncontrada = await _context.Funcion.AnyAsync(f => f.Sala.Id == funcion.SalaId && f.Fecha.AddHours(2) > funcion.Fecha && f.Fecha < funcion.Fecha.AddHours(2));
                 if (!funcionEncontrada)
                 {

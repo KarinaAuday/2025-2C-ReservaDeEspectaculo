@@ -7,16 +7,26 @@
 
 <h1>Seleccionar Pelicula</h1>
 <br>
-<div>
-    <form asp-action="SeleccionarPelicula" method="post">
-        <div class="form-group">
-            <label for="id">Película:</label>
-            <select id="id" name="id" class="form-control" asp-items="ViewBag.Titulo">
-                <option value="">-- Seleccioná una película --</option>
-            </select>
-        </div>
-        <br>
-        <button type="submit" class="btn nav-item" style="background-color: #010120; border-color: #010120; color: white;">Continuar</button>
-    </form>
-</div>
+
+@if (!String.IsNullOrEmpty(ViewBag.Mensaje))
+{
+    <p>@ViewBag.Mensaje</p>
+    <a class="btn btn-primary" asp-area="" asp-controller="Clientes" asp-action="Perfil">Mi perfil</a>
+} 
+else
+{
+    <div>
+        <form asp-action="SeleccionarPelicula" method="post">
+            <div class="form-group">
+                <label for="id">Película:</label>
+                <select id="id" name="id" class="form-control" asp-items="ViewBag.Titulo">
+                    <option value="">-- Seleccioná una película --</option>
+                </select>
+            </div>
+            <br>
+            <button type="submit" class="btn nav-item" style="background-color: #010120; border-color: #010120; color: white;">Continuar</button>
+        </form>
+    </div>
+}
+
 
