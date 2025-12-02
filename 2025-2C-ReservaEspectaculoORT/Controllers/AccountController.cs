@@ -1,8 +1,10 @@
 ﻿using _2025_2C_ReservaEspectaculoORT.Data;
 using _2025_2C_ReservaEspectaculoORT.Models;
 using _2025_2C_ReservaEspectaculoORT.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages;
 
 namespace _2025_2C_ReservaEspectaculoORT.Controllers
 {
@@ -26,6 +28,7 @@ namespace _2025_2C_ReservaEspectaculoORT.Controllers
         {   
             return View();
         }
+
 
         [HttpPost]
         public async Task<IActionResult> Registrar([Bind("Email", "Password", "ConfirmPassword")]RegistroUsuario u)
@@ -59,5 +62,41 @@ namespace _2025_2C_ReservaEspectaculoORT.Controllers
             return View(u);
         }
 
+
+        public IActionResult IniciarSesion(string returnUrl)
+        {
+            TempData["ReturnUrl"] = returnUrl;
+            return View();
+        }
+
+        [AllowAnonymous]
+        [HttpPost]
+        public async Task<IActionResult> IniciarSesion(InicioSesion inicio)
+        {
+
+            if (ModelState.IsValid)
+            {
+                string returnUrl = TempData["ReturnUrl"] as string;
+                var resultado = await _signInManager.PasswordSignInAsync(inicio.Email, inicio.Password, inicio.Recordarme, false);
+
+                if (resultado.Succeeded)
+                {
+                    if (!string.IsNullOrEmpty(returnUrl))
+                    {
+                        return Redirect(returnUrl);
+                    }
+                    return RedirectToAction("Index", "Home");
+                }
+
+                ModelState.AddModelError(String.Empty, "Inicio de Sesión inválida");
+            }
+            return View(inicio);
+        }
+
+        public async Task<IActionResult> CerrarSesion()
+        {
+            await _signInManager.SignOutAsync();
+            return RedirectToAction("Index", "Home");
+        }
     }
 }

@@ -15,5 +15,6 @@ namespace _2025_2C_ReservaEspectaculoORT.ViewModels
         [Display(Name = "Password")]
         public string Password { get; set; }
 
+        public bool Recordarme { get; set; }
     }
 }
