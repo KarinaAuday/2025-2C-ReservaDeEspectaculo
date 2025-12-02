@@ -38,7 +38,7 @@ namespace _2025_2C_ReservaEspectaculoORT.Controllers
                 return NotFound();
             }
 
-            var pelicula = await _context.Pelicula
+            var pelicula = await _context.Pelicula.Include(p => p.Funciones).ThenInclude(f => f.Sala).ThenInclude(s => s.TipoSala)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (pelicula == null)
             {

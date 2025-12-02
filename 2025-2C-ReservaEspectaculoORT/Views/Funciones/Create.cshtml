@@ -14,8 +14,7 @@
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="ButacasDisponibles" class="control-label"></label>
-                <input asp-for="ButacasDisponibles" class="form-control" />
+                <input asp-for="ButacasDisponibles" type="hidden" name="ButacasDisponibles" value="0" class="form-control" />
                 <span asp-validation-for="ButacasDisponibles" class="text-danger"></span>
             </div>
             <div class="form-group form-check">

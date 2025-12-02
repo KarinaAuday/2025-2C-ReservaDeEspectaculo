@@ -70,6 +70,7 @@ namespace _2025_2C_ReservaEspectaculoORT.Controllers
                 funcion.Pelicula = pelicula;
                 funcion.Sala = sala;    
                 funcion.Descripcion = funcion.Pelicula?.Titulo + " - " + funcion.Sala?.TipoSala?.Nombre;
+                funcion.ButacasDisponibles = sala.CapacidadButacas;
 
                 var funcionEncontrada = await _context.Funcion.AnyAsync(f => f.Sala.Id == funcion.SalaId && f.Fecha.AddHours(2) > funcion.Fecha && f.Fecha < funcion.Fecha.AddHours(2));
                 if (!funcionEncontrada)

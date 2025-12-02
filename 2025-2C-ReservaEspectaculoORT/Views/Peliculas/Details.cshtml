@@ -2,6 +2,11 @@
 
 @{
     ViewData["Title"] = "Details";
+    var funcionesDisponibles = Model.Funciones
+        .Where(f => f.Fecha < DateTime.Now.AddDays(7)
+                 && f.Confirmada)
+        .OrderBy(f => f.Fecha)
+        .ToList();
 }
 
 <h1>Details</h1>
@@ -43,6 +48,35 @@
         </dd>
     </dl>
 </div>
+
+@if (funcionesDisponibles.Count == 0)
+{
+    <p>No hay funciones disponibles en los próximos 7 días</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Fecha</th>
+                <th>Hora</th>
+                <th>Sala</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var funcion in funcionesDisponibles)
+            {
+                <tr>
+                    <td>@funcion.Fecha.ToShortDateString()</td>
+                    <td>@funcion.Fecha.Hour.ToString() : @funcion.Fecha.Minute.ToString()</td>
+                    <td>@funcion.Sala?.Numero (@funcion.Sala?.TipoSala?.Nombre)</td>
+                    
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
 <a class="btn btn-primary" asp-area="" asp-controller="Reservas" asp-action="SeleccionarButacas" asp-route-idPelicula="@Model.Id">Reservar</a>
 <div>
     <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |

@@ -70,7 +70,7 @@ namespace _2025_2C_ReservaEspectaculoORT.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("id,Apellido,Direccion,Dni,Email,FechaAlta,Nombre,Telefono,UserName")] Cliente cliente)
+        public async Task<IActionResult> Create([Bind("Id,Apellido,Direccion,Dni,Email,FechaAlta,Nombre,Telefono,UserName")] Cliente cliente)
         {
             if (ModelState.IsValid)
             {
