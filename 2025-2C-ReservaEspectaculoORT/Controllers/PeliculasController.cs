@@ -1,6 +1,7 @@
 ﻿using _2025_2C_ReservaEspectaculoORT.Data;
 using _2025_2C_ReservaEspectaculoORT.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -15,10 +16,12 @@ namespace _2025_2C_ReservaEspectaculoORT.Controllers
     public class PeliculasController : Controller
     {
         private readonly ReservaEspectaculoContext _context;
+        private readonly SignInManager<Persona> _signInManager;
 
-        public PeliculasController(ReservaEspectaculoContext context)
+        public PeliculasController(ReservaEspectaculoContext context, SignInManager<Persona> signInManager)
         {
             _context = context;
+            _signInManager = signInManager;
         }
 
         // GET: Peliculas
@@ -47,6 +50,7 @@ namespace _2025_2C_ReservaEspectaculoORT.Controllers
                 return NotFound();
             }
 
+            ViewBag.Iniciada = _signInManager.IsSignedIn(User);
             return View(pelicula);
         }
 
@@ -63,7 +67,7 @@ namespace _2025_2C_ReservaEspectaculoORT.Controllers
         [Authorize(Roles = "Empleado, Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Descripcion,Titulo,FechaLanzaiento,Id,Foto,Genero")] Pelicula pelicula)
+        public async Task<IActionResult> Create([Bind("Descripcion,Titulo,FechaLanzamiento,Id,Foto,Genero")] Pelicula pelicula)
         {
             if (ModelState.IsValid)
             {
@@ -104,7 +108,7 @@ namespace _2025_2C_ReservaEspectaculoORT.Controllers
         [Authorize(Roles = "Empleado, Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Descripcion,Titulo,FechaLanzaiento,Id,Foto,Genero")] Pelicula pelicula)
+        public async Task<IActionResult> Edit(int id, [Bind("Descripcion,Titulo,FechaLanzamiento,Id,Foto,Genero")] Pelicula pelicula)
         {
             if (id != pelicula.Id)
             {

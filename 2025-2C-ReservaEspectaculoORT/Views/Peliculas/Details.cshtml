@@ -49,32 +49,40 @@
     </dl>
 </div>
 
-@if (funcionesDisponibles.Count == 0)
+@if (ViewBag.Iniciada)
 {
-    <p>No hay funciones disponibles en los próximos 7 días</p>
+    <h5>Funciones disponibles: </h5>
+    @if (funcionesDisponibles.Count == 0)
+    {
+        <p>No hay funciones disponibles en los próximos 7 días</p>
+    }
+    else
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Fecha</th>
+                    <th>Hora</th>
+                    <th>Sala</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var funcion in funcionesDisponibles)
+                {
+                    <tr>
+                        <td>@funcion.Fecha.ToShortDateString()</td>
+                        <td>@funcion.Fecha.Hour.ToString() : @funcion.Fecha.Minute.ToString()</td>
+                        <td>@funcion.Sala?.Numero (@funcion.Sala?.TipoSala?.Nombre)</td>
+
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
 }
 else
 {
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Fecha</th>
-                <th>Hora</th>
-                <th>Sala</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var funcion in funcionesDisponibles)
-            {
-                <tr>
-                    <td>@funcion.Fecha.ToShortDateString()</td>
-                    <td>@funcion.Fecha.Hour.ToString() : @funcion.Fecha.Minute.ToString()</td>
-                    <td>@funcion.Sala?.Numero (@funcion.Sala?.TipoSala?.Nombre)</td>
-                    
-                </tr>
-            }
-        </tbody>
-    </table>
+    <p>Iniciar sesion para ver las proximas funciones disponibles </p>
 }
 
 <a class="btn btn-primary" asp-area="" asp-controller="Reservas" asp-action="SeleccionarPeliculaCartelera" asp-route-idPelicula="@Model.Id">Reservar</a>
