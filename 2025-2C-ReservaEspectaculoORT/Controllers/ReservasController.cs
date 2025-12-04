@@ -278,8 +278,7 @@ namespace _2025_2C_ReservaEspectaculoORT.Controllers
                 .Where(r =>
                     r.ClienteId == cliente.Id &&
                     r.Activa &&
-                    r.Funcion != null &&
-                    r.Funcion.Fecha >= DateTime.Now
+                    r.Funcion != null 
                 )
                 .Any();
 
@@ -307,12 +306,14 @@ namespace _2025_2C_ReservaEspectaculoORT.Controllers
         [HttpGet]
         public async Task<IActionResult> SeleccionarButacas(int idPelicula, int idCliente)
         {
+
             if (!_signInManager.IsSignedIn(User))
             {
                 return RedirectToAction("IniciarSesionConPelicula", "Account", new { idPeli = idPelicula });
             }
 
             var cliente = await _context.Cliente.FindAsync(idCliente);
+            
             if (tieneReservaActiva(cliente))
             {
                 ViewBag.Mensaje = "No puede realizar una nueva reserva porque ya tiene una reserva activa.";
