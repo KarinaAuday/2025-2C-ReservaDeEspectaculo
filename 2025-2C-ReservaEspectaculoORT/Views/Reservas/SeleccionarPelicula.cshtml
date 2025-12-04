@@ -17,7 +17,9 @@ else
 {
     <div>
         <form asp-action="SeleccionarPelicula" method="post">
+            <input type="hidden" name="idCliente" value="@ViewBag.IdCliente" />
             <div class="form-group">
+
                 <label for="id">Película:</label>
                 <select id="id" name="id" class="form-control" asp-items="ViewBag.Titulo">
                     <option value="">-- Seleccioná una película --</option>

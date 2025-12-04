@@ -232,7 +232,8 @@ namespace _2025_2C_ReservaEspectaculoORT.Controllers
             return RedirectToAction("ListarFunciones", new { idPelicula = id});
         }
 
-        public async Task<IActionResult> ListarFunciones(int idPelicula, int CantButacas)
+        [HttpGet]
+        public async Task<IActionResult> ListarFunciones(int idPelicula, int CantButacas, int idCliente)
         {
             var pelicula = await _context.Pelicula.Include(p => p.Funciones).ThenInclude(f => f.Sala).ThenInclude(s => s.TipoSala).FirstOrDefaultAsync(p => p.Id == idPelicula);
 
@@ -241,9 +242,11 @@ namespace _2025_2C_ReservaEspectaculoORT.Controllers
 
             ViewBag.Pelicula = pelicula;
             ViewBag.CantButacas = CantButacas;
+            ViewBag.IdCliente = idCliente;
 
             return View (pelicula);
         }
+
         public IActionResult ListarReservasDeFuncion(int id) {
 
             var funcion = _context.Funcion.Include(f => f.Reservas).ThenInclude(r=>r.Cliente).FirstOrDefault(f => f.Id == id);

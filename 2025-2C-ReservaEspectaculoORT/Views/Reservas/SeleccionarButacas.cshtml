@@ -17,6 +17,7 @@ else
     <div>
         <form asp-action="SeleccionarButacas" method="post">
             <input type="hidden" name="id" value="@ViewBag.PeliculaId" />
+            <input type="hidden" name="idCliente" value="@ViewBag.IdCliente"></input>
             <div class="form-group">
                 <label name="cantButacas" class="control-label">Cantidad de butacas:</label>
                 <input type="number" name="cantButacas" class="form-control" min="1" required />

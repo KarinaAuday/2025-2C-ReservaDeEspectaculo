@@ -26,8 +26,7 @@
                     }
                     else
                     {
-
-                        <a class="btn btn-primary" asp-area="" asp-controller="Reservas" asp-action="SeleccionarPelicula">Reservar</a>
+                        <a class="btn btn-primary" asp-area="" asp-controller="Reservas" asp-action="SeleccionarPeliculaEmpleado" asp-route-idCliente="@cliente.Id">Reservar</a>
                     }
                 </div> 
                 <a class="btn btn-light" asp-area="" asp-controller="Clientes" asp-action="Details" asp-route-id="@cliente.Id">Mas informacion</a>

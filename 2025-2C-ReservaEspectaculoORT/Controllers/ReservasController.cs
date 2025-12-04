@@ -59,9 +59,9 @@ namespace _2025_2C_ReservaEspectaculoORT.Controllers
 
         // GET: Reservas/Create
     
-        public IActionResult Create(int funcionId, int CantidadButacas)
+        public IActionResult Create(int funcionId, int CantidadButacas, int idCliente)
         {
-            ViewBag.ClienteId = int.Parse(_userManager.GetUserId(User));
+            ViewBag.ClienteId = idCliente;
             ViewBag.FuncionId = funcionId;
             ViewBag.CantButacas = CantidadButacas;
 
@@ -86,7 +86,7 @@ namespace _2025_2C_ReservaEspectaculoORT.Controllers
             {
                 reserva.FechaAlta = DateTime.Now;
 
-                var cliente = _context.Cliente.Include(f => f.Reservas).FirstOrDefault(f => f.Id == reserva.ClienteId);
+                var cliente = _context.Cliente.Include(c => c.Reservas).FirstOrDefault(c => c.Id == reserva.ClienteId);
                 reserva.Cliente = cliente;
                 cliente.Reservas.Add(reserva);
 
@@ -96,7 +96,7 @@ namespace _2025_2C_ReservaEspectaculoORT.Controllers
 
                 _context.Add(reserva);
                 await _context.SaveChangesAsync();
-                return RedirectToAction("Perfil", "Clientes");
+                return RedirectToAction("Details", "Clientes", new { id = cliente.Id });
             }
             //ViewData["ClienteId"] = new SelectList(_context.Set<Cliente>(), "id", "Apellido", reserva.ClienteId);
             //ViewData["FuncionId"] = new SelectList(_context.Funcion, "Id", "Descripcion", reserva.FuncionId);
@@ -247,43 +247,71 @@ namespace _2025_2C_ReservaEspectaculoORT.Controllers
         // GET: Reservas
         public async Task<IActionResult> SeleccionarPelicula()
         {
-
-
-                int idCliente = int.Parse(_userManager.GetUserId(User));
+            int idCliente = int.Parse(_userManager.GetUserId(User));
             var cliente = await _context.Cliente.FindAsync(idCliente);
             if (tieneReservaActiva(cliente))
             {
                 ViewBag.Mensaje = "No puede realizar una nueva reserva porque ya tiene una reserva activa.";
             }
             ViewBag.Titulo = new SelectList(_context.Pelicula, "Id", "Titulo");
+            ViewBag.IdCliente = idCliente;
             return View();
+        }
+
+        // GET: Reservas
+        public async Task<IActionResult> SeleccionarPeliculaEmpleado(int idCliente)
+        {
+            var cliente = await _context.Cliente.FindAsync(idCliente);
+            if (tieneReservaActiva(cliente))
+            {
+                ViewBag.Mensaje = "No puede realizar una nueva reserva porque ya tiene una reserva activa.";
+            }
+            ViewBag.Titulo = new SelectList(_context.Pelicula, "Id", "Titulo");
+            ViewBag.IdCliente = idCliente;
+            return View("SeleccionarPelicula");
         }
 
         private bool tieneReservaActiva(Cliente cliente)
         {
             var reservasActivas = _context.Reserva
                 .Include(r => r.Funcion)
-                .Where(r => r.ClienteId == cliente.Id && r.Activa && r.Funcion.Fecha >= DateTime.Now)
-                .ToList();
-            return reservasActivas.Count > 0;
+                .Where(r =>
+                    r.ClienteId == cliente.Id &&
+                    r.Activa &&
+                    r.Funcion != null &&
+                    r.Funcion.Fecha >= DateTime.Now
+                )
+                .Any();
+
+            return reservasActivas;
         }
+
 
         //POST
         [HttpPost]
-        public async Task<IActionResult> SeleccionarPelicula(int id)
+        public async Task<IActionResult> SeleccionarPelicula(int id, int idCliente)
         {
-            return RedirectToAction("SeleccionarButacas", "Reservas", new { idPelicula = id });
+            return RedirectToAction("SeleccionarButacas", "Reservas", new { idPelicula = id, idCliente });
+        }
+
+        public IActionResult SeleccionarPeliculaCartelera(int idPelicula) 
+        {
+            if (!_signInManager.IsSignedIn(User))
+            {
+                return RedirectToAction("IniciarSesionConPelicula", "Account", new { idPeli = idPelicula });
+            }
+                int idCliente = int.Parse(_userManager.GetUserId(User));
+                return RedirectToAction("SeleccionarButacas", new { idPelicula, idCliente });   
         }
 
         [HttpGet]
-        public async Task<IActionResult> SeleccionarButacas(int idPelicula)
+        public async Task<IActionResult> SeleccionarButacas(int idPelicula, int idCliente)
         {
             if (!_signInManager.IsSignedIn(User))
-            { 
-            
-                return RedirectToAction("IniciarSesionConPelicula","Account", new { idPeli = idPelicula});
+            {
+                return RedirectToAction("IniciarSesionConPelicula", "Account", new { idPeli = idPelicula });
             }
-                int idCliente = int.Parse(_userManager.GetUserId(User));
+
             var cliente = await _context.Cliente.FindAsync(idCliente);
             if (tieneReservaActiva(cliente))
             {
@@ -291,14 +319,15 @@ namespace _2025_2C_ReservaEspectaculoORT.Controllers
             }
             var pelicula = await _context.Pelicula.FindAsync(idPelicula);
             ViewBag.PeliculaId = pelicula.Id;
+            ViewBag.IdCliente = cliente.Id;
             return View();
         }
 
 
         [HttpPost]
-        public async Task<IActionResult> SeleccionarButacas(int cantButacas, int id)
+        public async Task<IActionResult> SeleccionarButacas(int cantButacas, int id, int idCliente)
         {
-            return RedirectToAction("ListarFunciones", "Funciones", new { idPelicula = id, CantButacas = cantButacas });
+            return RedirectToAction("ListarFunciones", "Funciones", new { idPelicula = id, CantButacas = cantButacas, idCliente });
         }
         public IActionResult ListarReservasFuturo()
         {

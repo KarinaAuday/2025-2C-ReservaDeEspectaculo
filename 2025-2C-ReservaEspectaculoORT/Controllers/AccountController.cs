@@ -158,6 +158,7 @@ namespace _2025_2C_ReservaEspectaculoORT.Controllers
                 string returnUrl = TempData["ReturnUrl"] as string;
               
                 var resultado = await _signInManager.PasswordSignInAsync(inicio.Email, inicio.Password, inicio.Recordarme, false);
+                int idCliente = int.Parse(_userManager.GetUserId(User));
 
                 if (resultado.Succeeded)
                 {
@@ -165,7 +166,7 @@ namespace _2025_2C_ReservaEspectaculoORT.Controllers
                     {
                         return Redirect(returnUrl);
                     }
-                    return RedirectToAction("SeleccionarButacas", "Reservas", new { idPelicula = idPelicula });
+                    return RedirectToAction("SeleccionarButacas", "Reservas", new { idPelicula, idCliente });
                 }
 
                 ModelState.AddModelError(String.Empty, "Inicio de Sesión inválida");

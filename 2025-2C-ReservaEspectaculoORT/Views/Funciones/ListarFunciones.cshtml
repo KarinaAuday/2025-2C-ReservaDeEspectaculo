@@ -40,7 +40,7 @@ else
                     <td>@funcion.Sala?.Numero (@funcion.Sala?.TipoSala?.Nombre)</td>
                     <td>@funcion.ButacasDisponibles</td>
                     <td>
-                        <a asp-controller="Reservas" asp-action="Create" asp-route-FuncionId="@funcion.Id"
+                        <a asp-controller="Reservas" asp-action="Create" asp-route-FuncionId="@funcion.Id" asp-route-idCliente="@ViewBag.IdCliente"
                            asp-route-CantidadButacas="@cantButacas" class="btn btn-primary">Reservar</a>
                     </td>
                 </tr>
